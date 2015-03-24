@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block contenido %}	
+
+			
+		<div id="main" class="wrapper clearfix">
+			<br/>
+
+			<article>
+				<div id="loginDiv">
+					{% if reactivar %}
+						<div style="color:red; text-align: justify;">Tardaste demasiado en activar tu cuenta, rellena el siguiente formulario para reactivarla.</div>
+					{% endif %}	
+					<div id="Formulario" style="text-align: center;">
+						<h2>Restaurar contraseña de usuario</h2>
+						<form action="/norecuerdo/" method="post">					
+							<div style="color:red; text-align: justify;">{{ form.non_field_errors }}</div>
+							{% if email %}
+								<div style="color:blue; text-align: justify;">Hemos enviado un e-mail a <b>{{ email }}</b> con las instrucciones para recuperar tu contraseña</div>
+							{% endif %}
+							
+							<table>
+							
+								<tr>
+									<td style="text-align: right;"><label> email </label></td>
+									<td style="text-align: left;">{{ form.email }} <span style="color:red;">{% for error in form.email.errors %}{{ error }}{% endfor %}</span></td>								
+								</tr>						
+
+								<tr>
+									<td style="text-align: right;"></td>
+									<td style="text-align: left;"><input type="submit" value="Restaurar" /></td>								
+								</tr>										
+														
+							</table>
+						</form>
+						<script type="text/javascript">document.getElementById("id_email").focus();</script>
+					</div><br/>
+
+					<div>
+						<a href="https://www.facebook.com/er.toni.56"  target="_blank"><img class="social" src="/static/imagenes/facebook.png" alt="" /></a>
+						<a href="http://www.twitter.com/toninoes"  target="_blank"><img class="social" src="/static/imagenes/twitter.png" alt="" /></a>
+					</div>
+					<br/>
+				</div>				
+			</article>	
+		
+			<aside>
+				<img src="/static/imagenes/webcam.png">	
+			</aside>	
+				
+		</div> <!-- #main -->
+
+{% endblock %}
+		
+
+

@@ -1,0 +1,9 @@
+Hola {{ invitado.first_name }},
+
+Acabas de ser invitado a la sala de {{ room.nombre }} en i-Presence. 
+
+Para acceder directamente pulsa sobre el siguiente enlace:
+
+https://{{ servidor }}/tokbox/{{ room.salaId }}
+
+Saludos.

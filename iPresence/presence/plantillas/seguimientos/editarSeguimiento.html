@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+	<script src="/static/js/charCount.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){	
+			//default usage
+			$("#id_actividad").charCount({
+				allowed: {{ form.fields.actividad.max_length }},
+				counterText: 'Caracteres restantes: '	
+			});
+			
+			$("#id_observaciones").charCount({
+				allowed: {{ form.fields.observaciones.max_length }},
+				counterText: 'Caracteres restantes: '	
+	
+			});
+		});
+	</script>
+	
+	<style>
+		.counter {color:grey;}
+	</style>
+{% endblock %}
+
+{% block contenido %}
+			
+		<div id="main" class="wrapper clearfix">					
+
+				<div id="Formulario">
+					
+					<h2 style="text-align: center;">Anotar Tarea alumno: {{ user.first_name }} {{ user.last_name }}</h2>
+					
+					<form name="editarSeguimiento" action="/editarSeguimiento/{{ form.idSeg.value }}/" method="post">
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						
+						{{ form.idSeg }}
+
+					<table>						
+						<tr>	
+							<td style="text-align: right; width: 20%;"> FCT </td>
+							<td style="text-align: left;">								
+								<select name="contratoprograma" id="id_contratoprograma">
+									<option value="{{ contrato.id }}">{{ contrato }}</option>
+								</select>								
+								<span style="color:red;">{% for error in form.contratoprograma.errors %}{{ error }}{% endfor %}</span>
+							</td>
+						</tr>
+						
+						<tr>
+							<td style="text-align: right;"><label> Fecha </label></td>
+							<td style="text-align: left;">{{ form.fecha }}<span style="color:red;"> {% for error in form.fecha.errors %}{{ error }}{% endfor %}</span></td>
+						</tr>
+						
+						<tr>
+							<td style="text-align: right;"><label> Actividad </label></td>
+							<td style="text-align: left;"><textarea style="width: 99%;" name="actividad" id="id_actividad" rows="4" maxlength='{{ form.fields.actividad.max_length }}'>{{ form.actividad.value }}</textarea> <span style="color:red;">{% for error in form.actividad.errors %}{{ error }}{% endfor %}</span></td>
+						</tr>
+						
+						<tr>
+							<td style="text-align: right;"><label> Tiempo empleado </label></td>
+							<td style="text-align: left;">{{ form.tiempo }} <span style="color:red;">{% for error in form.tiempo.errors %}{{ error }}{% endfor %}</span></td>
+						</tr>
+						
+						<tr>
+							<td style="text-align: right;"><label> Observaciones </label></td>
+							<td style="text-align: left;"><textarea style="width: 99%;" name="observaciones" id="id_observaciones" rows="2" maxlength='{{ form.fields.observaciones.max_length }}'>{{ form.observaciones.value }}</textarea> <span style="color:red;">{% for error in form.observaciones.errors %}{{ error }}{% endfor %}</span></td>
+						</tr>
+						
+						<tr>
+							<td></td>
+							<td style="text-align: left;"><input type="submit" value="Guardar"></td>
+						</tr>			
+					</table>
+
+
+						
+
+					</form>
+				</div>
+				
+
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

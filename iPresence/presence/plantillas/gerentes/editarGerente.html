@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+		<div id="main" class="wrapper clearfix">
+			
+			<div id="Formulario">
+				
+					<h2 style="text-align: center;">Edición gerente de {{ gerente.empresa }}</h2>
+
+					  <form action="/editarGerente/{{ form.idGer.value }}/" method="post">
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						{{ form.idGer }}
+						<table>
+
+							<tr>
+								<td style="text-align: right; width: 45%;"> NIF </td>
+								<td style="text-align: left;">{{ form.nif }} <span style="color:red;">{% for error in form.nif.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+							
+
+							<tr>
+								<td style="text-align: right;"> Nombre </td>
+								<td style="text-align: left;">{{ form.first_name }} <span style="color:red;">{% for error in form.first_name.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+							
+
+							<tr>
+								<td style="text-align: right;"> Apellido/s </td>
+								<td style="text-align: left;">{{ form.last_name }} <span style="color:red;">{% for error in form.last_name.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>						
+
+							<tr>
+								<td style="text-align: right;"></td>
+								<td><input type="submit" value="Editar" /></td>								
+							</tr>							
+														
+						</table>
+						 
+					  </form>				
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

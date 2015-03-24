@@ -1,0 +1,50 @@
+[
+  {
+    "model": "presence.aprendizaje",
+    "pk": 1,
+    "fields": {
+      "resultado": "Identifica la estructura y organización de la empresa relacionándolas con el tipo de servicio que presta."
+    }
+  },
+
+  {
+    "model": "presence.aprendizaje",
+    "pk": 2,
+    "fields": {
+      "resultado": "Aplica hábitos éticos y laborales en el desarrollo de su actividad profesional de acuerdo con las características del puesto de trabajo y con los procedimientos establecidos en la empresa."
+    }
+  },
+  
+  {
+    "model": "presence.aprendizaje",
+    "pk": 3,
+    "fields": {
+      "resultado": "Organiza el procedimiento de trabajo que debe desarrollar, interpretando la documentación específica."
+    }
+  },
+  
+  {
+    "model": "presence.aprendizaje",
+    "pk": 4,
+    "fields": {
+      "resultado": "Determina las características técnicas de la instalación a partir de las funcionalidades y necesidades establecidas."
+    }
+  },
+  
+  {
+    "model": "presence.aprendizaje",
+    "pk": 5,
+    "fields": {
+      "resultado": "Participa en el diseño, la puesta en marcha y el mantenimiento de instalaciones con servicios de red local e Internet, documentando la intervención realizada."
+    }
+  },
+
+  {
+    "model": "presence.aprendizaje",
+    "pk": 6,
+    "fields": {
+      "resultado": "Asiste a los usuarios resolviendo problemas de la explotación del sistema, según las normas y tiempos establecidos."
+    }
+  }  
+
+]

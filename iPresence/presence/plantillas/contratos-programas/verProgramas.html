@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">			
+
+			<div id="contentalt">
+				
+				{% if programas %}
+						<a href="/crearPrograma/" class="enlaceboton">Crear Programa Formativo</a>
+						<table>
+							<tr>
+								<th><strong>Fecha creación</strong></th>
+								<th><strong>Alumno</strong></th>
+								<th><strong>Curso</strong></th>
+								<th><strong>Periodo</strong></th>
+								<th><strong>Tutor Laboral</strong></th>
+								<th><strong>Gerente</strong></th>
+								<th><strong>Empresa</strong></th>
+								<th colspan="2"><strong>Acciones</strong></th>
+							</tr>				
+							{% for programa in programas %}
+							<tr>
+								<td>{{ programa.fecha|date:"d/M/Y"}}</td>
+								<td>{{ programa.contrato.alumno }}</td>	
+								<td>{{ programa.contrato.curso }}</td>
+								<td>Trimestre {{ programa.periodo }}º</td>
+								<td>{{ programa.contrato.laboral }}</td>
+								<td>{{ programa.contrato.gerente }}</td>
+								<td>{{ programa.contrato.gerente.empresa }}</td>
+								<td><a href="/verPrograma/{{ programa.id }}" class="enlaceboton">Ver</a></td>
+								<td><a href="/ProgramaPdf/{{ programa.id }}" class="enlaceboton">Imprimir</a></td>
+							</tr>
+							{% endfor %}
+						</table>
+				{% else %}
+					<h3>No existen Programas Formativos de ninguno de tus Alumnos</h3>				
+				{% endif %}
+				<a href="/crearPrograma/" class="enlaceboton">Crear Programa Formativo</a>
+		
+			</div>
+		</div> <!-- #main -->
+		
+{% endblock %}

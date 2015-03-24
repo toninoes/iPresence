@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">
+			
+			{% if docentes %}
+			
+		
+			<div id="contentalt">
+						<a href="/registroDocente/" class="enlaceboton">Dar de alta a nuevo Tutor Docente</a><br/><br/>
+						<table>
+							<tr>
+								<th><strong>Nombre</strong></th>
+								<th><strong>Apellido/s</strong></th>
+								<th><strong>e-mail</strong></th>
+								<th><strong>Último Login</strong></th>
+								<th><strong>Activo</strong></th>
+								<th><strong>Videochat</strong></th>
+							</tr>				
+							{% for docente in docentes %}
+							<tr>
+								<td>{{ docente.first_name }}</td>
+								<td>{{ docente.last_name }}</td>
+								<td>{{ docente.email }}</td>
+								<td>{{ docente.last_login|date:'d/M/Y H:i' }}</td>
+								<td>{% if docente.is_active %}<a href="/desactivaUsuario/{{ docente.id }}" title = "Desactivar a {{ docente }}"><img src="/static/imagenes/si.png"></a>{% else %}<a href="/activaUsuario/{{ docente.id }}" title = "Activar a {{ docente }}"><img id="icono" src="/static/imagenes/no.ico"></a>{% endif %}</td>
+								<td>{% if docente.puede_hablar %}<a href="/nohablaUsuario/{{ docente.id }}" title = "Desactivar videoconferencia a {{ docente }}"><img src="/static/imagenes/si.png"></a>{% else %}<a href="/hablaUsuario/{{ docente.id }}" title = "Activar videoconferencia a {{ docente }}"><img id="icono" src="/static/imagenes/no.ico"></a>{% endif %}</td>
+							</tr>
+							{% endfor %}
+						</table>
+
+			</div>
+			{% else %}
+				<p style="text-align: center;">No hay registrado todavía ningun Tutor Docente</p>
+			{% endif %}
+			<a href="/registroDocente/" class="enlaceboton">Dar de alta a nuevo Tutor Docente</a>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

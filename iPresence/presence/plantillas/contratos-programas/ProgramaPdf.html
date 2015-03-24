@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+		h1 {text-align: center}
+		table { border: 2px solid black;  border-collapse:collapse; border-color:#ccc; text-align: center;}
+		td, th { border: 1px solid black; font-size: 9px; border-bottom:1px solid #666666; vertical-align:center; padding:2px; font-family: Arial; }
+		pre {font-size: 9px; vertical-align:center; font-family: Arial; } 
+		@page {
+			size: a4 landscape;
+			margin-top: 0.5cm;
+			margin-bottom: 0.5cm;
+			margin-left: 3.8cm;
+			margin-right: 3.2cm;
+		} 
+	</style>
+</head>    
+<body>
+	
+	<img src="{{ proyecto }}/static/imagenes/junta-header2.png"/>
+    
+    <div>
+		<table>
+			<tr style="text-align: left;">
+				<td width="50%">
+					CENTRO DOCENTE: <b>IES Fernando Aguilar Quignon</b><br/>
+					PROFESOR/PROFESORA REPONSABLE DEL SEGUIMIENTO: <b>{{ programa.docente }}</b><br/><br/>
+					ALUMNO/ALUMNA: <b>{{ programa.alumno }}</b><br/>
+				</td>
+				<td width="50%">
+					CENTRO DE TRABAJO COLABORADOR: <b>{{ programa.gerente.empresa }}</b><br/>
+					TUTOR / TUTORA DEL CENTRO DE TRABAJO: <b>{{ programa.laboral }}</b><br/>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERÍODO DE REALIZACIÓN DE LA FCT<br/>
+					{% if programa.periodo == "1" %} <b>X</b> {% endif %}PRIMER TRIMESTRE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% if programa.periodo == "2" %} <b>X</b> {% endif %}SEGUNDO TRIMESTRE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% if programa.periodo == "3" %} <b>X</b> {% endif %}TERCER TRIMESTRE
+				</td>
+			</tr>
+		</table>
+				
+		<table>
+			<tr style="text-align: left; border-bottom: 0px solid white;">
+				<td style="text-align: left; border-bottom: 0px solid white;">CURSO ESCOLAR: <b>{{ programa.curso }}</b></td>
+			</tr>
+			<tr style="text-align: left; border-top: 0px solid white;">
+				<td style="text-align: left; border-top: 0px solid white;"><pre>FAMILIA PROFESIONAL: <b>Informática</b> 								CICLO FORMATIVO: <b>Administración de Sistémas Informáticos en Red</b> 						GRADO: <b>Superior</b></pre></td>
+			</tr>	
+		</table>
+		<table>
+			<tr style="text-align: center;">
+				<td width="40%" style="background: #d9d9d9;">RESULTADOS DE APRENDIZAJE</td>
+				<td width="30%" style="background: #d9d9d9;">ACTIVIDADES FORMATIVO-PRODUCTIVAS</td>
+				<td width="1%" style="background: #d9d9d9; border-right: 0px solid #d9d9d9;"></td>
+				<td width="29%" style="background: #d9d9d9; border-left: 0px solid #d9d9d9;">CRITERIOS DE EVALUACIÓN</td>				
+			</tr>
+			
+			<tr>
+				<td style="vertical-align: top; text-align: justify;">
+					<ul>					
+						{% for aprendizaje in aprendizajes %}
+							<li>{{ aprendizaje }}</li>
+						{% endfor %}
+					</ul>
+				</td>
+				<td style="vertical-align: top; text-align: justify;">{{ programa.actividades }}</td>
+				<td style="border-right: 0px;"><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></td>
+				<td style="vertical-align: top; text-align: justify; border-left: 0px;">{{ programa.criterios }}</td>
+			</tr>
+		</table>
+		<p style="text-align: center;">En Cádiz a {{ programa.fecha }}</p>		
+				
+    </div>		
+    <img src="{{ proyecto }}/static/imagenes/junta-footer2.png"/>
+	<table style="border: 0px;">
+		<tr style="text-align: left; border: 0px;">
+			<td width="12%" style="border: 0px;"></td>
+			<td width="31%" style="border: 0px;">Fdo.: <b>{{ programa.docente }}</b></td>
+			<td width="31%" style="border: 0px;">Fdo.: <b>Fco. Javier Maestre Deusto</b></td>
+			<td width="26%" style="border: 0px;">Fdo.: <b>{{ programa.laboral }}</b></td>
+		</tr>
+	</table>    
+</body>
+</html>

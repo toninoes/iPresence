@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+	<link rel="stylesheet" href="/static/css/bluedream.css">
+	<script src="{{ API }}"></script>
+	<script src="/static/js/col/etherpad.js"></script>
+	
+	<script type="text/javascript">
+		var apiKey = '{{ API_KEY }}';
+		var sessionId = '{{ salaEsperaId }}'; 
+		var token = '{{ token }}';  
+	 
+		var session = TB.initSession(sessionId);     
+		session.addEventListener('sessionConnected', sessionConnectedHandler);
+		session.addEventListener('streamCreated', streamCreatedHandler);
+		session.addEventListener("exception", exceptionHandler);
+		    
+		session.connect(apiKey, token);
+
+		function exceptionHandler(event) {
+		  // Retry session connect
+		  if (event.code === 1006 || event.code === 1008 || event.code === 1014) {
+		    alert('Ha ocurrido un error en la conexión. Intentar de nuevo.');
+		    session.connect(apiKey, token);
+		  }
+		}
+
+		var publisher;
+	 
+		function sessionConnectedHandler(event) {
+			//Definir las propiedades del stream con el que yo publico.
+			var newStyle = {
+				nameDisplayMode: "on"
+			}
+			var divProps = {width: 132, height:99, name:'{{ user.get_full_name }}', microphoneGain:70, style:newStyle, wmode:"window"};
+			
+			// Publicar el stream de mi webcam y situarla en el elemento DIV llamado 'myPublisherDiv'
+			publisher = session.publish('myPublisherDiv', divProps);
+
+			// Suscribirse a los streams que se encuentren en la sesion que nos conectamos
+			subscribeToStreams(event.streams);
+		}
+	     
+		function streamCreatedHandler(event) {
+			// Suscribirse a cualquier nuevo stream que sea creado
+			subscribeToStreams(event.streams);
+		}
+	     
+		function subscribeToStreams(streams) {
+			for (var i = 0; i < streams.length; i++) {
+				// Hay que asegurarse que no nos suscribimos a nuestro propio stream
+				if (streams[i].connection.connectionId == session.connection.connectionId) {
+					return;
+				}
+
+				// Crear el elemento DIV para introducir ahí el elemento al que nos suscribimos
+				var div = document.createElement('div');
+				div.setAttribute('id', 'stream' + streams[i].streamId);
+				document.getElementById("Sala").appendChild(div);	
+				var newStyle = {
+						nameDisplayMode: "on"
+					}
+				var subscriberProps = {width: 132, height:99, audioVolume:100, style:newStyle, wmode:"window"};
+
+				// A continuación nos suscribimos al stream
+				session.subscribe(streams[i], div.id, subscriberProps);
+			}
+		}
+		
+	</script>	
+
+  
+{% endblock %}
+
+{% block contenido %}
+			
+		<div class="wrapper clearfix">			
+
+			<div id="Sala" style="min-height: 280px;">
+
+					<table>
+						<caption>SALAS DISPONIBLES</caption>
+						<tr>
+							<th><strong>Dueño Sala</strong></th>
+							<th><strong>último acceso</strong></th>
+							<th><strong>Acciones</strong></th>
+						</tr>
+
+						{% if Rooms.count < 1 %}
+							<tr>
+								<td colspan="3">No estás autorizado a entrar en ninguna sala</td>
+							</tr>
+						{% else %}
+							{% for room in Rooms  %}
+								<tr>
+									<td>{{ room.nombre }}</td>
+									<td>{{ room.owner.last_login|date:"d-M-Y H:i" }}</td>
+									<td><a href="/tokbox/{{ room.salaId }}" class="enlaceboton">Entrar</a></td>
+								</tr>								
+							{% endfor %}
+						{% endif %}							
+					</table>									
+				
+				{% if user.es_tutorDocente %}
+					<br/>
+					<div><a href="/tokbox/{{ myRoom.salaId }}" class="enlaceboton">Ir a mi Sala</a></div>	
+				{% else %}
+					<h2>Sala de Espera</h2>
+				{% endif %}
+				<hr/>	
+				<div id="myPublisherDiv" style="min-height: 100px;"></div>
+			</div>
+
+			{% if user.es_tutorDocente or user.es_Alumno %}	
+			
+				<div id="Sala" style="min-height:15px;">
+					<h2>Pizarra-Chat</h2>				
+					<div id="SalaEsperai-Presence"></div>			
+				</div>
+				
+				<script type="text/javascript">
+				   $('#SalaEsperai-Presence').pad({'host':'http://{{ servidor }}', 'padId':'SalaEsperai-Presence','showControls': 'true', 'showLineNumbers': 'true', 'height': '380', 'userName': '{{ user.first_name }} {{ user.last_name }}', 'showChat': 'true', 'alwaysShowChat': 'true'});
+				</script>
+			
+			{% endif %}	
+								
+		</div> <!-- #main -->
+
+		{% include "diagnostics.html" %}	
+
+	
+{% endblock %}

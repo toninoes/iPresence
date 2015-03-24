@@ -1,0 +1,125 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>i-Presence</title>
+	<meta name="description" content="La aplicación web de Telepresencia de Formación en Centros de Trabajo">
+	<meta name="keywords" content="Django, Opentok, Tokbox, initializr, Postgresql, html5, Administracion de Sistemas Informaticos en Red, Formación en Centros de Trabajo, IES Bahia de cadiz, IES Fernando Aguilar Quignón,videoconferencia, telepresencia, televisita, Etherpad" />
+	<meta name="author" content="Antonio Ruiz Rondan">
+	<meta name="viewport" content="width=device-width">
+	<link rel="shortcut icon" href="/static/imagenes/favicon.ico" />
+	
+		
+	{% load adminmedia %}
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/widgets.css"/>
+	<script type="text/javascript" src="/admin/jsi18n/"></script>
+	<script type="text/javascript" src="/static/admin/js/core.js"></script>
+	<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+	{{ form.media }}
+	<script type="text/javascript">
+	window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";
+	</script>
+	<link rel="stylesheet" href="/static/css/style.css">
+	<script src="/static/js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
+	{% if user.is_authenticated %}
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<link href="/static/css/jquery.ambiance.css" rel="stylesheet" type="text/css">
+	    <script src="/static/js/jquery.ambiance.js" type="text/javascript"></script>
+	{% endif %}
+
+	{% block masHead %}{% endblock %}
+
+</head>
+
+<body>
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+
+	<div id="header-container">
+		<header class="wrapper clearfix">
+			<h1 id="title" style="color: white;">iPresence <span><img src="/static/imagenes/beta2.png" style="max-width: 45px;"></h1></span>
+			<!--
+			<nav>
+				<ul>
+					<li><a href="/salas/" style="color: white;">Televisita</a></li>
+					<li><a href="/panel/" style="color: white;">Admin</a></li>
+				</ul>
+			</nav>-->
+		
+			<div id="logueado">
+				{% if user.is_authenticated %}
+					<h4>Hola, {% if user.is_staff %} Administrador {% else %} {{ user.first_name }} {% endif %} <span><a href="/accounts/logout/" title = "Salir de iPresence"><img style="max-width: 22px;" src="/static/imagenes/off2.ico"></span></h4>
+				{% else %}
+					<h4><a href="/accounts/login/?next=/" class="enlacebotonNaranja">Entrar</a></h4>
+				{% endif %}
+			</div>
+		</header>
+		{% if user.is_authenticated %}
+			<div class="wrapper clearfix" style="text-align: right; color: white;">
+				{% include "links.html" %}			
+			</div>
+		{% endif %}
+	</div>
+		
+	<div id="main-container">
+		
+		{% block contenido %}{% endblock %}
+						
+		
+	</div> <!-- #main-container -->
+
+	<div id="footer-container">
+		<footer class="wrapper">
+			<h4 style="text-align: center;">Antonio Ruiz Rondán  -  IES Fernando Aguilar Quignón</h4>
+		</footer>
+	</div>
+
+	{% if user.is_authenticated %}
+
+		<div id='pubnub' ssl='on'></div>
+		<script src='https://pubnub.a.ssl.fastly.net/pubnub-3.4.min.js'></script>
+		<script>(function(){
+
+		    var pubnub = PUBNUB.init({
+		        subscribe_key : 'sub-bbea8c40-29d2-11e2-bbc5-7193b92b6ef3',
+		        origin        : 'pubsub.pubnub.com',
+		        ssl           : true
+		    });
+
+		    pubnub.subscribe({
+		        channel  : 'entrarsalir',
+		        connect  : function() { /* ... */ },
+		        callback : function(message) {
+		            $.ambiance({message: message, 
+		            type: "success",
+		            timeout: 7 });
+		        }
+		    });
+
+		    pubnub.subscribe({
+		        channel  : '{{ user.username }}',
+		        connect  : function() { /* ... */ },
+		        callback : function(message) {
+		            $.ambiance({message: message, 
+		            title: "Mensaje para ti:",
+		            type: "success",
+		            timeout: 0 });
+		        }
+		    });
+
+		    {% block masPubnub %}{% endblock %}
+
+		})();</script>
+
+	{% endif %}
+
+	
+</body>
+</html>

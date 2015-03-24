@@ -1,0 +1,12 @@
+Hola de nuevo {{ usuario_confirmado.first_name }},
+
+Tu cuenta acaba de ser confirmada.
+
+Recuerda que:
+
+	-tu usuario es: {{ usuario_confirmado.username }}
+	-tu contraseña la debiste definir tras pulsar en el enlace proporcionado en el correo anterior.
+	
+
+Administrador de i-Presence
+https://{{ servidor }}

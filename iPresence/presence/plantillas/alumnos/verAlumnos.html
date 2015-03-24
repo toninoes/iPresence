@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+	<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+	<link href="/static/css/footable-0.1.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
+	<script src="/static/js/footable.js" type="text/javascript"></script>
+	<script src="/static/js/footable.sortable.js" type="text/javascript"></script>
+	<script src="/static/js/footable.filter.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	  $(function() {
+		$('table').footable();
+	  });
+	</script>
+	<script>
+		function desactivaUsuario(url, alumno)
+		{
+			if(confirm('{{ user.first_name }}, ¿Estas seguro de desactivar a '+alumno+'?'))
+			{
+				window.location=url;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+		
+		function activaUsuario(url, alumno)
+		{
+			if(confirm('{{ user.first_name }}, ¿Estas seguro de activar a '+alumno+'?'))
+			{
+				window.location=url;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+		
+		function nohablaUsuario(url, alumno)
+		{
+			if(confirm('{{ user.first_name }}, ¿Estas seguro de desactivar la videoconferencia a '+alumno+'?'))
+			{
+				window.location=url;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+		
+		function hablaUsuario(url, alumno)
+		{
+			if(confirm('{{ user.first_name }}, ¿Estas seguro de activar la videoconferencia a '+alumno+'?'))
+			{
+				window.location=url;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+	</script>		
+{% endblock %}	
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">
+			{% if empresa %}
+				<h3 style="text-align: center;">Alumnos que actualmente realizan prácticas en {{ empresa }}</h3>			
+			{% endif %}
+			
+			{% if alumnos %}		
+				<div id="contentalt">
+					{% if not empresa %}{% if not user.es_tutorLaboral %}<a href="/registroAlumno/" class="enlaceboton">Dar de alta a nuevo Alumno</a><br/>{% endif %}{% endif %}
+					Buscar: <input id="filter" type="text" />
+					<table data-filter="#filter" class="footable">
+						  <thead>
+							<tr>
+							  <th data-class="expand" data-sort-initial="true">
+								<span title="Tabla ordenada por defecto por esta columna">Alumno</span>
+							  </th>
+							  
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;">
+								<span>Último login</span>
+							  </th>
+
+							{% if user.es_tutorDocente %}
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;">
+								<span title="sorting disabled on this column"><img id="icono" title="Activar o Desactivar a usuario" src="/static/imagenes/users.ico"></span>
+							  </th>
+							{% endif %}
+
+							{% if user.es_tutorDocente %}
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;">
+								<span title="sorting disabled on this column"><img id="icono" title="Permitir o no permitir realizar videoconferencia al usuario" src="/static/imagenes/webcam2.ico"></span>
+							  </th>
+							{% endif %}
+
+							{% if user.es_tutorDocente %}
+							  <th colspan="2" data-hide="expand" data-sort-ignore="true" style="text-align: center;">
+								<span title="sorting disabled on this column">Visitas</span>
+							  </th>
+							{% endif %}
+							
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;">
+								<span title="sorting disabled on this column">Ficha</span>
+							  </th>
+																											  
+							  <th data-hide="all">
+								Fecha de nacimiento
+							  </th>
+							  
+							  <th data-hide="all">
+								email
+							  </th>
+
+							  <th data-hide="all">
+								Teléfono/s
+							  </th>
+							
+							{% if user.es_tutorDocente %}
+							  <th data-hide="all">
+								Tutor Laboral
+							  </th>
+							{% endif %}
+
+							{% if user.es_tutorDocente %}
+							  <th data-hide="all">
+								Empresa
+							  </th>
+							{% endif %}
+							
+							{% if user.es_tutorDocente %}
+							  <th data-hide="all">
+								Centro Trabajo
+							  </th>
+							{% endif %}						  						           
+							</tr>
+						  </thead>
+					<tbody>
+						
+						{% for alumno in alumnos %}
+							<tr>
+								<td>{{ alumno.last_name }}, {{ alumno.first_name }}</td>
+								
+								<td style="text-align: center;">{{ alumno.last_login|date:'d/M/Y H:i' }}</td>
+								
+								{% if user.es_tutorDocente %}<td style="text-align: center;">{% if alumno.docente.id == user.id %} {% if alumno.is_active %}<a href="/desactivaUsuario/{{ alumno.id }}" title = "Desactivar al usuario {{ alumno }}" onclick="return desactivaUsuario('/desactivaUsuario/{{ alumno.id }}', '{{alumno}}')"><img id="icono" src="/static/imagenes/si.png"></a>{% else %}<a href="/activaUsuario/{{ alumno.id }}" title = "Activar al usuario {{ alumno }}" onclick="return activaUsuario('/activaUsuario/{{ alumno.id }}', '{{alumno}}')"><img id="icono" src="/static/imagenes/no.ico"></a>{% endif %}{% endif %}</td>{% endif %}
+								
+								{% if user.es_tutorDocente %}<td style="text-align: center;">{% if alumno.docente.id == user.id %} {% if alumno.puede_hablar %}<a href="/nohablaUsuario/{{ alumno.id }}" title = "Desactivar videoconferencia a {{ alumno }}" onclick="return nohablaUsuario('/nohablaUsuario/{{ alumno.id }}', '{{alumno}}')"><img id="icono" src="/static/imagenes/si.png"></a>{% else %}<a href="/hablaUsuario/{{ alumno.id }}" title = "Activar videoconferencia a {{ alumno }}" onclick="return hablaUsuario('/hablaUsuario/{{ alumno.id }}', '{{alumno}}')"><img id="icono" src="/static/imagenes/no.ico"></a>{% endif %}{% endif %}</td>{% endif %}
+								
+								{% if user.es_tutorDocente %}<td style="text-align: center;">{% if alumno.docente.id == user.id %} <a href="/verVisitasAlu/{{ alumno.id }}" title="Ver visitas efectuadas a {{ alumno }}"><img id="icono" src="/static/imagenes/list.png"></a>{% endif %}</td>
+								<td style="text-align: center;">{% if alumno.docente.id == user.id %}<a href="/crearVisitaAlu/{{ alumno.id }}" title="Anotar visita a {{ alumno }}"><img id="icono" src="/static/imagenes/add.ico"></a>{% endif %}</td>{% endif %}
+								
+								{% if user.es_tutorDocente %}<td style="text-align: center;">{% if alumno.docente.id == user.id %}<a href="/verSeguimiento/{{ alumno.id }}" title="Ver Ficha de seguimiento semanal de {{ alumno }}"><img id="icono" src="/static/imagenes/list.png"></a>{% endif %}</td>
+								{% else %}<td style="text-align: center;"><a href="/verSeguimiento/{{ alumno.id }}" title="Ver Ficha de seguimiento semanal de {{ alumno }}"><img id="icono" src="/static/imagenes/list.png"></a></td>{% endif %}
+								
+								<td>{{ alumno.fnac }}</td>
+								<td>{{ alumno.email }}</td>
+								<td>{{ alumno.telefono }} - {{ alumno.movil }}</td>
+								
+								{% if user.es_tutorDocente %}<td>{{ alumno.laboral }}</td>{% endif %}
+								{% if user.es_tutorDocente %}<td>{{ alumno.laboral.centro.empresa }}</td>{% endif %}
+								{% if user.es_tutorDocente %}<td>{{ alumno.laboral.centro }}</td>{% endif %}								
+								
+							</tr>
+						{% endfor %}
+					</table>
+
+				</div>
+			{% else %}
+				{% if user.es_tutorLaboral %}
+					<p style="text-align: center;">No tienes asignado ningún alumno todavía</p>
+				{% else %}
+					<p style="text-align: center;">No hay dado de alta ningún alumno todavía</p>
+				{% endif %}
+			{% endif %}
+			{% if not empresa %}{% if not user.es_tutorLaboral %}<a href="/registroAlumno/" class="enlaceboton">Dar de alta a nuevo Alumno</a>{% endif %}{% endif %}
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

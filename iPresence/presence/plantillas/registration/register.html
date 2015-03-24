@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+
+
+
+{% block contenido %}
+
+		<div id="main" class="wrapper clearfix">
+			
+			<div id="Formulario">
+				
+					<h2 style="text-align: center;">Crear una nueva cuenta de {% if newuser == 'alumno' %} Alumno {% endif %} {% if newuser == 'laboral' %} Tutor Laboral {% if empresa %} para {{ empresa }}{% endif %} {% endif %} {% if newuser == 'docente' %} Tutor Docente {% endif %}</h2>
+
+					<form action="" method="post">
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						
+						<table>
+
+							<tr>
+								<td style="text-align: right; width: 45%;"><label> NIF </label></td>
+								<td style="text-align: left;">{{ form.nif }} <span style="color:red;">{% for error in form.nif.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;"><label> Nombre </label></td>
+								<td style="text-align: left;">{{ form.first_name }} <span style="color:red;">{% for error in form.first_name.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;"><label> Apellido/s </label></td>
+								<td style="text-align: left;">{{ form.last_name }} <span style="color:red;">{% for error in form.last_name.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							
+							<tr>
+								<td style="text-align: right;"><label> e-mail </label></td>
+								<td style="text-align: left;">{{ form.email }} <span style="color:red;">{% for error in form.email.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+							
+							{% if newuser == 'alumno' %}
+
+							<tr>
+								<td style="text-align: right;"><label> Fecha Nacimiento </label></td>
+								<td style="text-align: left;">{{ form.fnac }} <span style="color:red;">{% for error in form.fnac.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>							
+
+							<tr>
+								<td style="text-align: right;"><label> Teléfono </label></td>
+								<td style="text-align: left;">{{ form.telefono }} <span style="color:red;">{% for error in form.telefono.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>							
+
+							<tr>
+								<td style="text-align: right;"><label> Móvil </label></td>
+								<td style="text-align: left;">{{ form.movil }} <span style="color:red;">{% for error in form.movil.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+														
+											
+							{% endif %}
+
+
+							{% if newuser == 'laboral' %}
+								{% if centros %}
+									<tr>
+										<td style="text-align: right;"><label> Centro de trabajo </label></td>
+										<td style="text-align: left;"><select name="centro" id="id_centro">
+												<option value="" selected="selected">---------</option>
+												{% for centro in centros %}
+													<option value="{{ centro.id }}">{{ centro }}</option>
+												{% endfor %}
+											</select>
+											<a href="/crearCentro/{% if empresa %}{{ empresa.id }}/{% endif %}" title="Nuevo Centro de trabajo {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a>
+											<span style="color:red;">{% for error in form.centro.errors %}{{ error }}{% endfor %}</span>
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td style="text-align: right;"><label> Centro de trabajo </label></td>
+										<td style="text-align: left;">{{ form.centro }}
+										<a href="/crearCentro/{% if empresa %}{{ empresa.id }}/{% endif %}" title="Nuevo Centro de trabajo {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a>
+										<span style="color:red;">{% for error in form.centro.errors %}{{ error }}{% endfor %}</span></td>										
+									</tr>
+								{% endif %}
+										
+							{% endif %}							
+
+							<tr>
+								<td style="text-align: right;"></td>
+								<td style="text-align: left;"><input type="submit" value="Crear" /></td>								
+							</tr>				
+
+							<!--<tr>
+								<td style="text-align: right;"></td>
+								<td><input type="checkbox" name="enviarMail" value="on" id="id_enviarMail" /> ¿Notificarle alta por e-mail?</td>								
+							</tr>-->						
+														
+						</table>
+						 
+					  </form>				
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

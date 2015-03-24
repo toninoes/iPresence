@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">			
+
+			<div id="contentalt">
+				
+				<table>
+					<tr style="text-align: left;">
+						<td width="50%">
+							Centro Docente: <b>IES Fernando Aguilar Quignon</b><br/>
+							Profesor/a responsable del seguimiento: <b>{{ programa.alumno.docente }}</b><br/>
+							Alumno/a: <b>{{ programa.alumno }}</b>
+						</td>
+						<td width="50%">
+							Centro de trabajo colaborador: <b>{{ programa.alumno.laboral.empresa }}</b><br/>
+							Tutor/a del centro de trabajo: <b>{{ programa.alumno.laboral }}</b><br/>
+							Periodo de realización de la FCT: <b>Trimestre {{ programa.periodo }}º</b>
+						</td>
+					</tr>
+				</table>
+				
+				
+				<h3>Fecha creación</h3>
+					{{ programa.fecha }}
+				<h3>Alumno</h3>
+					{{ programa.contrato.alumno }}
+				<h3>Curso</h3>				
+					{{ programa.contrato.curso }}
+				<h3>Periodo</h3>				
+					Trimestre {{ programa.periodo }}º
+				<h3>Tutor Laboral</h3>			
+					{{ programa.contrato.laboral }}
+				<h3>Empresa</h3>			
+					{{ programa.contrato.gerente.empresa }}
+				<h3>Resultados de aprendizaje esperados</h3>				
+					<ul>					
+						{% for aprendizaje in aprendizajes %}
+							<li>{{ aprendizaje }}</li>
+						{% endfor %}
+					</ul>
+				<h3>Actividades Formativo-Productivas</h3>
+					{{ programa.actividades }}
+				<h3>Criterios de evaluación</h3>
+					{{ programa.criterios }}
+			
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

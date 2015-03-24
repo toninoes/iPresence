@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">				
+				
+			<div id="Formulario">
+				
+				<h2 style="text-align: center;">Registrar nuevo Programa Formativo</h2>			
+				
+					
+					<form name="crearPrograma" action="/crearPrograma/" method="post">
+						
+						{{ form.non_field_errors }}						
+							
+							<h3>Contrato: {{ form.contrato }}</h3>
+							
+							
+							<h3>Periodo: {{ form.periodo }}</h3>
+							
+							
+							<h3>Resultados de aprendizaje esperados</h3>
+							{{ form.aprendizajes }}
+							
+							<h3>Actividades Formativo-Productivas</h3>
+							{{ form.actividades }}
+							
+							<h3>Criterios de evaluación</h3>
+							{{ form.criterios }}
+							
+						
+						<input type="submit" value="Guardar">
+											
+					</form>
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}	

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">				
+				
+			<div id="Formulario">				
+				<h2 style="text-align: center;">Editar Empresa: {{ form.nombre.value }}</h2>			
+				
+					
+					<form name="registroEmpresa" action="/editarEmpresa/{{ form.idEmp.value }}/" method="post">							
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						{{ form.idEmp }}					
+						<table>
+							<tr>
+								<td  style="text-align: right; width: 45%;"><label> CIF </label></td>
+								<td style="text-align: left;">{{ form.cif }} <span style="color:red;">{% for error in form.cif.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+	
+							<tr>
+								<td style="text-align: right;"><label> Razón social </label></td>
+								<td style="text-align: left;">{{ form.nombre }} <span style="color:red;">{% for error in form.nombre.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;"><label> Dirección </label></td>
+								<td style="text-align: left;">{{ form.direccion }} <span style="color:red;">{% for error in form.direccion.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;"><label> Población </label></td>
+								<td style="text-align: left;">{{ form.poblacion }} <span style="color:red;">{% for error in form.poblacion.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;"><label> Código postal </label></td>
+								<td style="text-align: left;">{{ form.postal }}	<span style="color:red;">{% for error in form.postal.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;"><label> email </label></td>
+								<td style="text-align: left;">{{ form.email }}	<span style="color:red;">{% for error in form.email.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;"><label> Teléfono </label></td>
+								<td style="text-align: left;">{{ form.telefono }} <span style="color:red;">{% for error in form.telefono.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;"><label> Fax </label></td>
+								<td style="text-align: left;">{{ form.fax }} <span style="color:red;">{% for error in form.fax.errors %}{{ error }}{% endfor %}</span> </td>								
+							</tr>
+														
+							<tr>
+								<td style="text-align: right;"></td>
+								<td style="text-align: left;"><input type="submit" value="Guardar"></td>
+							</tr>
+						</table>						
+					</form>
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}	

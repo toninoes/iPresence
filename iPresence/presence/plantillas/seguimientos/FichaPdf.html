@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+		table { border: 1px solid black;  border-collapse:collapse; border-color:#ccc; text-align: center}
+		td, th { border: 1px solid grey; font-size: 9px; border-bottom:1px solid #666666; vertical-align:center; padding:5px; font-family: Arial; }
+		@page {
+			size: a4 landscape;
+			margin-top: 0.5cm;
+			margin-bottom: 0.5cm;
+			margin-left: 3.8cm;
+			margin-right: 3.2cm;
+		} 
+	</style>
+</head>    
+<body>
+	
+	<img src="{{ proyecto }}/static/imagenes/junta-header.png"/>
+    
+    <div id="tabla_pdf">
+		<table>
+			<tr style="text-align: left;">
+				<td width="46.8%" style="border-top: 2px solid black; border-left: 2px solid black; border-right: 2px solid black;">Semana del lunes <b>{{ lunes|date:"d-F-Y" }}</b> al viernes <b>{{ viernes|date:"d-F-Y" }}</b></td>
+			</tr>
+		</table>
+
+		<table>
+			<tr style="text-align: left;">
+				<td width="46.8%" style="border-left: 2px solid black;">CENTRO DOCENTE:  <b>IES Fernando Aguilar Quignon</b><br/>PROFESOR/PROFESORA RESPONSABLE SEGUIMIENTO:  <b>{{ contrato.docente }}</b></td>
+				<td width="53.2%" style="border-top: 2px solid black; border-right: 2px solid black;">CENTRO DE TRABAJO COLABORADOR: <b>{{ contrato.laboral.centro.empresa }}</b>	<br/>TUTOR/TUTORA DEL CENTRO DE TRABAJO: <b>{{ contrato.laboral }}</b></td>
+			</tr>
+			
+			<tr style="text-align: left;">
+				<td style="border-bottom: 2px solid black; border-left: 2px solid black;">ALUMNO/ALUMNA: <b>{{ contrato.alumno }}</b></td>
+				<td style="border-bottom: 2px solid black; border-right: 2px solid black;">CICLO FORMATIVO: <b>Administración de Sistemas Informáticos en Red</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GRADO: <b>S</b> </td>
+			</tr>
+			
+		</table>
+
+		<br/>
+		
+		<table>
+			<tr>
+				<td width="8.5%" style="border: 2px solid black;">DIA</td>
+				<td width="56.0%" style="border: 2px solid black;">ACTIVIDAD DESARROLLADA/PUESTO FORMATIVO</td>
+				<td width="12.9%" style="border: 2px solid black;">Tiempo Empleado</td>
+				<td width="1.6%" style="border-right: 0px; border-bottom: 2px solid black; border-top: 2px solid black; border-left: 2px solid black;"></td>
+				<td width="21%" style="border-left: 0px; border-bottom: 2px solid black; border-top: 2px solid black; border-right: 2px solid black;">OBSERVACIONES</td>
+			</tr>
+			
+			{% for seguimiento in seguimientos %}
+			
+				<tr style="text-align: left;">
+					<td style="text-align: center; border: 2px solid black;">{{ seguimiento.fecha|date:"l"|upper}}</td>
+					<td {% if forloop.last %} style="border-bottom: 2px solid black;" {% endif %}>{{ seguimiento.actividad }}</td>
+					<td style="text-align: center; {% if forloop.last %} border-bottom: 2px solid black; {% endif %}">{{ seguimiento.tiempo }} hora{{ seguimiento.tiempo|pluralize }}</td>
+					<td style="border-right: 0px; {% if forloop.last %} border-bottom: 2px solid black; {% endif %}"><br/><br/><br/><br/><br/></td>
+					<td style="border-left: 0px; border-right: 2px solid black; {% if forloop.last %} border-bottom: 2px solid black; {% endif %}">{{ seguimiento.observaciones }}</td>
+				</tr>
+				
+			{% endfor %}			
+			
+		</table style="border: 2px solid black;">
+				
+    </div>
+    <div>
+		<img src="{{ proyecto }}/static/imagenes/junta-footer.png"/>
+		<table style="border: 0px;">
+			<tr style="text-align: left; border: 0px;">
+				<td width="16%" style="border: 0px;"></td>
+				<td width="29%" style="border: 0px;">Fdo.: <b>{{ contrato.alumno }}</b></td>
+				<td width="27%" style="border: 0px;">Fdo.: <b>{{ contrato.docente }}</b></td>
+				<td width="28%" style="border: 0px;">Fdo.: <b>{{ contrato.laboral }}</b></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

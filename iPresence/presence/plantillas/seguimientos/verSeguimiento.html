@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+
+	<script>
+		function confirmarBorrado(url)
+		{
+			if(confirm('{{ user.first_name }}, ¿Estas seguro de borrar este registro?'))
+			{
+				window.location=url;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+	</script>
+		
+{% endblock %}	
+
+{% block contenido %}
+			
+	<div id="main" class="wrapper clearfix">
+		
+		<div id="Formulario" style="text-align: center;">
+			<h2>Listado de Tareas Alumno: {% if alumno %} {{ alumno }}{% else %} Todos tus alumnos {% endif %}</h2>				
+			<form action="/verSeguimiento/" name="verSeguimiento" id="verSeguimiento" method="post">
+				<div style="color:red;">{{ form.non_field_errors }}</div>					
+				<table>						
+					<tr>
+						<td style="text-align: right; width: 45%;"><label> Fecha </label></td>
+						<td style="text-align: left;"> {{ form.fecha }} <input type="button" value="Mostrar" id="mostrar" name="mostrar" onclick="document.verSeguimiento.action = '/verSeguimiento/'; document.verSeguimiento.submit()" onkeypress="document.verSeguimiento.action = '/verSeguimiento/'; document.verSeguimiento.submit()"/>
+						{% if seguimientos.count == 5 %}
+							<input type="button" value="Generar PDF" id="pdf" name="FichaPdf" onclick="document.verSeguimiento.action = '/FichaPdf/'; document.verSeguimiento.submit()" onkeypress="document.verSeguimiento.action = '/FichaPdf/'; document.verSeguimiento.submit()"/>
+						{% endif %}</td>
+					</tr>
+
+					<tr>
+						<td colspan="2" style="text-align: center;"><span style="text-align: center; color:red;">{% for error in form.fecha.errors %}{{ error }}{% endfor %}</span></td>
+					</tr>						
+				</table>					
+			</form>
+		</div>		
+		
+		<div style="text-align: center;">
+			{%  if lunes %}
+				<h3>Tareas de la semana del lunes <span style="color:red;">{{ lunes|date:"d-F-Y" }}</span> al viernes <span style="color:red;">{{ viernes|date:"d-F-Y" }}</span></h3>				
+			{% else %}
+				<h3>Todas tus Tareas Anotadas</h3>
+				<p style="color:red;">Llevas acumulado un total de {{ dias }} día{{ dias|pluralize }} ({{ horas }} hora{{ horas|pluralize }}) de prácticas.</p>	
+			{% endif %}	
+					
+		</div>
+		
+		{% if seguimientos %}			
+			<div id="contentalt">			
+				<p><a href="/insertarSeguimiento/" class="enlaceboton">Anotar nueva tarea</a></p>	
+								
+				<table>
+					<tr style="text-align: left;">
+						<td  width="38%">CENTRO DOCENTE:  <b>IES Fernando Aguilar Quignon</b><br/>TUTOR DOCENTE:  <b>{{ contrato.docente }}</b></td>
+						<td>CENTRO PRACTICAS: <b>{{ contrato.laboral.centro.empresa }}</b>	<br/>TUTOR LABORAL: <b>{{ contrato.laboral }}</b></td>
+					</tr>
+					
+					<tr style="text-align: left;">
+						<td>ALUMNO/A: <b>{{ contrato.alumno }}</b></td>
+						<td>CICLO FORMATIVO: <b>Administración de Sistemas Informáticos en Red</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GRADO: <b>S</b> </td>
+					</tr>						
+				</table>
+					<br/>
+				
+				<table>
+					<tr>
+						<th><strong>Fecha</strong></th>
+						<th><strong>Actividad</strong></th>
+						<th><strong>Tiempo</strong></th>
+						<th><strong>Observaciones</strong></th>
+						<th colspan="2"><strong>Acciones</strong></th>
+					</tr>				
+					{% for seguimiento in seguimientos %}
+						<tr>
+							<td>{{ seguimiento.fecha|date:"l d/M/Y"}}</td>	
+							<td style="text-align: justify;">{{ seguimiento.actividad }}</td>
+							<td>{{ seguimiento.tiempo }} hora{{ seguimiento.tiempo|pluralize }}</td>
+							<td style="text-align: justify;">{{ seguimiento.observaciones }}</td>
+							<td><a href="/borrarSeguimiento/{{ seguimiento.id }}" title="Borrar registro del {{ seguimiento.fecha}}" onclick="return confirmarBorrado('/borrarSeguimiento/{{ seguimiento.id }}')"><img id="icono" src="/static/imagenes/no.ico"></a></td>
+							<td><a href="/editarSeguimiento/{{ seguimiento.id }}" title="Editar registro del {{ seguimiento.fecha}}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>
+						</tr>
+					{% endfor %}
+				</table>							
+			</div>
+		{% else %}
+			<h2  style="text-align: center;">No has anotado todavía ninguna tarea</h2>	
+		{% endif %}
+			<p><a href="/insertarSeguimiento/" class="enlaceboton">Anotar nueva tarea</a></p>
+		
+	</div> <!-- #main -->
+
+{% endblock %}
+		

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">			
+
+			<div id="contentalt">
+				
+				{% if gerentes %}
+					<h2 style="text-align: center;">Relación de gerentes {% if empresa %} de {{ empresa }} - {{ empresa.cif }} {% endif %}</h2>
+					<table>
+						<tr>
+							<th colspan="2"><strong>NIF</strong></th>
+							<th><strong>Nombre</strong></th>
+							<th><strong>Apellido/s</strong></th>
+						</tr>				
+						{% for gerente in gerentes %}
+						<tr>
+							<td><a href="/editarGerente/{{ gerente.id }}" title="Editar datos del gerente {{ gerente }}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>
+							<td>{{ gerente.nif}}</td>
+							<td>{{ gerente.first_name }}</td>	
+							<td>{{ gerente.last_name }}</td>
+						</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<h3>No existe ningún gerente asociado a {{ empresa }}</h3>				
+				{% endif %}
+		
+			</div>
+		</div> <!-- #main -->
+		
+{% endblock %}

@@ -1,0 +1,11 @@
+Hola {{ nuevo_usuario }},
+
+Acabas de ser dado/a de alta en i-Presence. 
+
+Para que el alta se haga efectiva tienes {{ dias_activar }} dias para activar tu cuenta de usuario, para ello, pincha sobre el siguiente enlace: 
+
+https://{{ servidor }}/activar/{{ key }}
+
+
+Administrador de i-Presence
+https://{{ servidor }}

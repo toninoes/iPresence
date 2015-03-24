@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+		<div id="main" class="wrapper clearfix">
+			
+			<div id="Formulario">
+				
+					<h2 style="text-align: center;">Actualiza tus datos</h2>
+
+					<form action="/editarLaboral/{{ form.idUser.value }}/" method="post">
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						{{ form.idUser }}	
+						<table>
+
+							<tr>
+								<td style="text-align: right; width: 45%;"><label> NIF </label></td>
+								<td style="text-align: left;">{{ form.nif }} <span style="color:red;">{% for error in form.nif.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;"><label> Nombre </label></td>
+								<td style="text-align: left;">{{ form.first_name }} <span style="color:red;">{% for error in form.first_name.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;"><label> Apellido/s </label></td>
+								<td style="text-align: left;">{{ form.last_name }} <span style="color:red;">{% for error in form.last_name.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							
+							<tr>
+								<td style="text-align: right;"><label> e-mail (...y nombre de usuario)</label></td>
+								<td style="text-align: left;">{{ form.email }} <span style="color:red;">{% for error in form.email.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>							
+
+							<tr>
+								<td style="text-align: right;"></td>
+								<td style="text-align: left;"><input type="submit" value="Actualizar" /></td>								
+							</tr>				
+							
+														
+						</table>
+						 
+					  </form>				
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

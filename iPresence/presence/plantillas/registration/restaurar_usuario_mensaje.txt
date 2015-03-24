@@ -1,0 +1,11 @@
+Hola {{ usuario }},
+
+Has recibido este correo electrónico porque has olvidado tu contraseña y has solicitado restaurarla. Si no es así ignora este mensaje.
+
+Si deseas generar una nueva contraseña debes pulsar sobre el siguiente enlace dentro de los próximos {{ dias_activar }} días:
+
+https://{{ servidor }}/{{ key }}
+
+
+Administrador de i-Presence
+https://{{ servidor }}

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<style type="text/css">
+		body {font-family: Times New Roman; font-size: 12px;}
+		table { border: 2px solid black;  border-collapse:collapse;}
+		td, th { border: 1px solid black; border-bottom:1px solid #666666; vertical-align:center; padding:2px; }
+		@page {
+			size: a4 portrait;
+			margin-top: 2cm;
+			margin-bottom: 2cm;
+			margin-left: 2cm;
+			margin-right: 2cm;
+		} 
+	</style>
+</head>    
+<body>
+	<h1 style="text-align: center">FORMACIÓN EN CENTROS DE TRABAJO</h1>
+	<h1>CICLO FORMATIVO ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS</h1>
+	
+	<h1>DATOS DE LA EMPRESA</h1>
+	<table>
+		<tr>
+			<td style="border-right: 0px;">
+				<br/>
+				<b>RAZON SOCIAL:</b> {{ contrato.gerente.empresa }}<br/>
+				<b>DIRECCION:</b> {{ contrato.gerente.empresa.direccion }}<br/>
+				<b>POBLACION:</b> {{ contrato.gerente.empresa.poblacion }}</b><br/>
+				<b>TELEFONO:</b> {{ contrato.gerente.empresa.telefono }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>E-MAIL:</b> {{ contrato.gerente.empresa.email }}<br/>
+				<b>GERENTE D. </b> {{ contrato.gerente }}<br/>
+				<b>TUTOR LABORAL D. </b> {{ contrato.laboral }}<br/>
+				<b>TUTOR DOCENTE D. </b> {{ contrato.docente }}<br/>	
+			</td>
+			<td style="text-align: left; width: 30%; border-left: 0px;">
+				<br/>
+				<b>CIF:</b> {{ contrato.gerente.empresa.cif }}<br/>
+				<br/>
+				<b>C. POSTAL:</b> {{ contrato.gerente.empresa.postal }}<br/>
+				<b>FAX:</b> {{ contrato.gerente.empresa.fax }}<br/>
+				<b>DNI:</b> {{ contrato.gerente.nif }}<br/>
+				<b>DNI:</b> {{ contrato.laboral.nif }}<br/>
+				<b>DNI:</b> {{ contrato.docente.nif }}<br/>
+			</td>
+		</tr>
+	</table>
+	
+	
+	<br/><br/>
+	<h1>CENTRO DE TRABAJO</h1>
+	<table>
+		<tr>
+			<td>
+				<br/>
+				<b>DIRECCION:</b> {{ contrato.laboral.centro.direccion }}<br/>
+				<b>POBLACION:</b> {{ contrato.laboral.centro.poblacion }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>C. POSTAL:</b> {{ contrato.laboral.centro.postal }}<br/>
+				<b>TELEFONO:</b> {{ contrato.laboral.centro.telefono }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>FAX:</b> {{ contrato.laboral.centro.fax }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>E-MAIL:</b> {{ contrato.laboral.centro.email }}<br/>			
+			</td>
+		</tr>
+	</table>
+
+	<br/><br/>
+	<h1>DATOS ALUMNO</h1>
+	<table>
+		<tr>
+			<td>
+				<br/>
+				<b>APELLIDOS Y NOMBRE:</b> {{ contrato.alumno.last_name }}, {{ contrato.alumno.first_name }}<br/>
+				<b>DNI:</b> {{ contrato.alumno.nif }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>TELEFONO:</b> {{ contrato.alumno.telefono }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>MOVIL:</b> {{ contrato.alumno.movil }}<br/>
+				<b>FECHA DE NACIMIENTO:</b> {{ contrato.alumno.fnac }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>MODALIDAD DE AYUDA <sup>1</sup>:</b> {{ contrato.modalidad }}<br/>		
+			</td>
+		</tr>
+	</table>	
+	<br/><br/>
+	<sup>1</sup>
+	A. Misma localidad desde 5 Kms<br/>
+	&nbsp;&nbsp;&nbsp;B. Otra localidad hasta 20 Kms<br/>
+	&nbsp;&nbsp;&nbsp;C. Otra localidad a más de 20 Kms<br/>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+{{ usuario_confirmado.first_name }} tu cuenta ha sido confirmada correctamente.

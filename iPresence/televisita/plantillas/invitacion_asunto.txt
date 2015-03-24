@@ -1,0 +1,1 @@
+{{ invitado.first_name }}, estás invitado a la sala de {{ room.nombre }} en iPresence.

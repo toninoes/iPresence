@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">				
+				
+			<div id="Formulario">				
+				<h2 style="text-align: center;">Editar Contrato/Programa</h2>					
+					<form name="crearContrato" action="/editarContrato/{{ form.idCon.value }}/" method="post">
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						{{ form.idCon }}				
+						<table>
+							<tr>
+								<td style="text-align: right;"><label> <b>Curso:</b> </label></td>
+								<td style="text-align: left;"> {{ contratoprograma.curso }} </td>
+							</tr>							
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Tutor docente:</b> </label></td>
+								<td style="text-align: left;"> {{ contratoprograma.docente }} </td>
+							</tr>	
+							
+							<tr>
+								<td style="text-align: right; width: 35%;"><label> <b>Alumno:</b> </label></td>
+								<td style="text-align: left;"> 
+									<select name="alumno" id="id_alumno">
+										{% for alumno in alumnos %}											
+											<option value="{{ alumno.id }}" {% if contratoprograma.alumno.id == alumno.id %} selected="selected" {% endif %}>{{ alumno }}</option>
+										{% endfor %}
+									</select> <a href="/registroAlumno/" title = "Añadir nuevo alumno"><img id="icono" src="/static/imagenes/add.ico"></a>
+									<span style="color:red;">{% for error in form.alumno.errors %}{{ error }}{% endfor %}</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Tutor laboral:</b> </label></td>
+								<td style="text-align: left;"> 
+									<select name="laboral" id="id_laboral">
+										{% for laboral in laborals %}
+											<option value="{{ laboral.id }}" {% if contratoprograma.laboral.id == laboral.id %} selected="selected" {% endif %}>{{ laboral }}</option>
+										{% endfor %}
+									</select> <a href="/registroLaboral/{{ empresa.id }}" title = "Añadir tutor laboral de {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a>
+									<span style="color:red;">{% for error in form.laboral.errors %}{{ error }}{% endfor %}</span>
+								</td>
+							</tr>	
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Gerente: </b> </label></td>
+								<td style="text-align: left;"> 
+									<select name="gerente" id="id_gerente">
+										{% for gerente in gerentes %}
+											<option value="{{ gerente.id }}" {% if contratoprograma.gerente.id == gerente.id %} selected="selected" {% endif %}>{{ gerente }}</option>
+										{% endfor %}
+									</select> <a href="/crearGerente/{{ empresa.id }}" title = "Añadir gerente de {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a>
+									<span style="color:red;">{% for error in form.gerente.errors %}{{ error }}{% endfor %}</span>
+								</td>
+							</tr>	
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Modalidad</b> </label></td>
+								<td style="text-align: left;"> {{ form.modalidad }} <span style="color:red;">{% for error in form.modalidad.errors %}{{ error }}{% endfor %}</span></td> 
+							</tr>	
+
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Periodo</b> </label></td>
+								<td style="text-align: left;"> {{ form.periodo }} <span style="color:red;">{% for error in form.periodo.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+
+							<style type="text/css">textarea{width: 100%;}</style>
+							<tr>
+								<td style="text-align: right;"><label> <b>Resultados de aprendizaje esperados</b> </label></td>
+								<td style="text-align: left;"> {{ form.aprendizajes }} <span style="color:red;">{% for error in form.aprendizajes.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>							
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Actividades Formativo-Productivas</b> </label></td>
+								<td style="text-align: left;"> {{ form.actividades }} <span style="color:red;">{% for error in form.actividades.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+
+							<tr>
+								<td style="text-align: right;"><label> <b>Criterios de evaluación</b> </label></td>
+								<td style="text-align: left;"> {{ form.criterios }} <span style="color:red;">{% for error in form.criterios.errors %}{{ error }}{% endfor %}</span></td>
+							</tr>
+														
+							<tr>
+								<td style="text-align: right;"></td>
+								<td style="text-align: left;"><input type="submit" value="Editar"></td>
+							</tr>	
+							
+						</table>
+											
+					</form>
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}	

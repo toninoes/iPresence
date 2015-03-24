@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">			
+
+			<div id="contentalt">
+				<h2 style="text-align: center;">Relación de contratos {% if empresa %} con {{ empresa }} {% else %} en los que participas {% endif %}</h2>
+				{% if contratos %}						
+						<table>
+							<tr>
+								<th><strong>Curso</strong></th>
+								<th><strong>Alumno</strong></th>
+								{% if not empresa %}<th><strong>Empresa</strong></th>{% endif %}
+								<th colspan="2"><strong>Visitas</strong></th>				
+								<th colspan="4"><strong>Programa/Contrato</strong></th>
+							</tr>				
+							{% for contrato in contratos %}
+							<tr>								
+								<td>{{ contrato.curso}}</td>
+								<td>{{ contrato.alumno }}</td>	
+								{% if not empresa %}<td>{{ contrato.gerente.empresa }}</td>{% endif %}
+								<td><a href="/verVisitas/{{ contrato.id }}" title="Ver visitas efectuadas a {{ contrato.alumno }} en {{ contrato.gerente.empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>
+								<td><a href="/crearVisita/{{ contrato.id }}" title="Anotar visita a {{ contrato.alumno }} en {{ contrato.gerente.empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a></td>
+								<td><a href="/editarContrato/{{ contrato.id }}" title="Editar Contrato/Programa {{ contrato }}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>
+								<td><a href="/verContrato/{{ contrato.id }}" title="Ver datos Contrato/Programa de {{ contrato.alumno }} con {{ contrato.gerente.empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>								
+								<td><a href="/ProgramaPdf/{{ contrato.id }}" title="Descargar PDF del programa formativo de {{ contrato.alumno }} con {{ contrato.gerente.empresa }}"><img id="icono" src="/static/imagenes/pdf.png"></a></td>
+								<td><a href="/ContratoPdf/{{ contrato.id }}" title="Descargar PDF con los datos del contrato de {{ contrato.alumno }} con {{ contrato.gerente.empresa }}"><img id="icono" src="/static/imagenes/pdf.png"></a></td>
+							</tr>
+							{% endfor %}
+						</table>
+				{% else %}
+					<p style="text-align: center;">No existen Contratos</p>				
+				{% endif %}
+		
+			</div>
+		</div> <!-- #main -->
+		
+{% endblock %}

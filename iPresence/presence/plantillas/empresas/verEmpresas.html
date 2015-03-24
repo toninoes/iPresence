@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+	<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+	<link href="/static/css/footable-0.1.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
+	<script src="/static/js/footable.js" type="text/javascript"></script>
+	<script src="/static/js/footable.sortable.js" type="text/javascript"></script>
+	<script src="/static/js/footable.filter.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	  $(function() {
+		$('table').footable();
+	  });
+	</script>
+	
+{% endblock %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">
+			
+			{% if empresas %}
+			
+		
+			<div id="contentalt">
+					<a href="/registroEmpresa/" class="enlaceboton">Nueva Empresa</a><br/>						
+					Buscar: <input id="filter" type="text" />
+					<table data-filter="#filter" class="footable">
+						  <thead>
+							<tr>
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center; border-right: 0;">
+							  </th>
+							  
+							  <th data-class="expand" data-sort-initial="true" style="text-align: center; border-left: 0;">
+								<span title="Tabla ordenada por defecto por esta columna">EMPRESAS</span>
+							  </th>
+							  
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;" colspan="2">
+								<span>Centros</span>
+							  </th>
+							  
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;" colspan="2">
+								<span>Gerentes</span>
+							  </th>
+							  
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;" colspan="2">
+								<span>Tutores</span>
+							  </th>
+							  
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;" colspan="2">
+								<span>Contratos</span>
+							  </th>
+							  
+							  <th data-hide="expand" data-sort-ignore="true" style="text-align: center;">
+								<span>Alumnos</span>
+							  </th>
+							  
+							  <th data-hide="all">
+								  CIF
+							  </th>
+							  
+							  <th data-hide="all">
+								  Dirección
+							  </th>
+							  
+							  <th data-hide="all">
+								  Población
+							  </th>
+							  
+							  <th data-hide="all">
+								  Código postal
+							  </th>
+							  
+							  <th data-hide="all">
+								  Teléfono
+							  </th>
+							  
+							  <th data-hide="all">
+								  Fax
+							  </th>
+							  
+							  <th data-hide="all">
+								  e-mail
+							  </th>
+							</tr>
+						  </thead>
+					<tbody>								
+							{% for empresa in empresas %}
+								<tr>
+									<td style="text-align: center;"><a href="/editarEmpresa/{{ empresa.id }}" title="Editar datos de la empresa {{ empresa }}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>
+									<td><b>{{ empresa.nombre }}</b></td>																						
+									<td style="text-align: center;"><a href="/verCentros/{{ empresa.id }}" title="Ver centros de trabajo de {{ empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>
+									<td style="text-align: center;"><a href="/crearCentro/{{ empresa.id }}" title="Nuevo Centro de trabajo {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a></td>								
+									<td style="text-align: center;"><a href="/verGerentes/{{ empresa.id }}" title="Ver gerentes de {{ empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>
+									<td style="text-align: center;"><a href="/crearGerente/{{ empresa.id }}" title="Añadir gerente de {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a></td>
+									<td style="text-align: center;"><a href="/verLaborals/{{ empresa.id }}" title="Ver tutores laborales de {{ empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>
+									<td style="text-align: center;"><a href="/registroLaboral/{{ empresa.id }}" title="Añadir tutor laboral de {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a></td>
+									<td style="text-align: center;"><a href="/verContratos/{{ empresa.id }}" title="Ver contratos con {{ empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>
+									<td style="text-align: center;"><a href="/crearContrato/{{ empresa.id }}" title="Nuevo contrato con {{ empresa }}"><img id="icono" src="/static/imagenes/add.ico"></a></td>
+									<td style="text-align: center;"><a href="/verAlumnosEmpresa/{{ empresa.id }}" title="Ver alumnos que actualmente hacen prácticas en {{ empresa }}"><img id="icono" src="/static/imagenes/list.png"></a></td>
+									<td>{{ empresa.cif }}</td>
+									<td>{{ empresa.direccion }}</td>
+									<td>{{ empresa.poblacion }}</td>
+									<td>{{ empresa.postal }}</td>
+									<td>{{ empresa.telefono }}</td>
+									<td>{{ empresa.fax }}</td>
+									<td>{{ empresa.email }}</td>
+								</tr>							
+							{% endfor %}
+					</table>
+
+			</div>
+			{% else %}
+				<p style="text-align: center;">No hay anotada todavía ninguna empresa</p>
+			{% endif %}
+			<a href="/registroEmpresa/" class="enlaceboton">Nueva Empresa</a>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

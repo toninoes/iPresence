@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+	<script>
+		function confirmarBorrado(url, visita)
+		{
+			if(confirm('{{ user.first_name }}, ¿Estas seguro de borrar la visita de: '+visita+'?'))
+			{
+				window.location=url;
+			}
+			else
+			{
+				return false;
+			}	
+		}
+	</script>		
+{% endblock %}	
+
+{% block contenido %}
+			
+		<div id="main" class="wrapper clearfix">			
+
+			<div id="contentalt">
+				<h2 style="text-align: center;">Relación de visitas {% if contrato %} realizadas a {{ contrato.alumno }} en {{ contrato.gerente.empresa }} {% else %} realizadas {% endif %} {% if alumno %} a {{ alumno }} {% endif %}</h2>
+				{% if visitas %}						
+						<table>
+							<tr>
+								<th><strong>Curso</strong></th>
+								<th><strong>Fecha</strong></th>
+		   {% if not contrato %}{% if not alumno %}<th><strong>Alumno</strong></th>{% endif %}{% endif %}
+		   {% if not contrato %}<th><strong>Empresa</strong></th>{% endif %}
+								<th><strong>Modalidad</strong></th>
+								<th><strong>Duración</strong></th>
+   {% if user.es_tutorDocente %}<th colspan="4"><strong>Acciones</strong></th>{% endif %}
+							</tr>				
+							{% for visita in visitas %}
+								<tr>
+									<td>{{ visita.contratoprograma.curso }}</td>
+									<td>{{ visita.fecha|date:"d-M-Y" }}</td>
+			   {% if not contrato %}{% if not alumno %}<td>{{ visita.contratoprograma.alumno }}</td>{% endif %}{% endif %}
+			   {% if not contrato %}<td>{{ visita.contratoprograma.gerente.empresa }}</td>{% endif %}
+									<td>{% if visita.modalidad == 'P' %} presencial {% else %} telemática {% endif %}</td>
+									<td>{{ visita.tiempo }} hora{{ visita.tiempo|pluralize }}</td>
+	   {% if user.es_tutorDocente %}<td><a href="/verVisita/{{ visita.id }}" title="Ver datos de la visita a {{ visita.contratoprograma.alumno }} en {{ visita.contratoprograma.gerente.empresa }} el día {{ visita.fecha }}"><img id="icono" src="/static/imagenes/list.png"></a></td>{% endif %}								
+	  {% if user.es_tutorDocente %}<td><a href="/VisitaPdf/{{ visita.id }}" title="Descargar PDF de la visita a {{ visita.contratoprograma.alumno }} en {{ visita.contratoprograma.gerente.empresa }} el día {{ visita.fecha }}"><img id="icono" src="/static/imagenes/pdf.png"></a></td>{% endif %}
+	  {% if user.es_tutorDocente %}<td><a href="/editarVisita/{{ visita.id }}" title="Editar la visita de {{ visita.contratoprograma.alumno }} en {{ visita.contratoprograma.gerente.empresa }} del día {{ visita.fecha }}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>{% endif %}
+	  {% if user.es_tutorDocente %}<td><a href="/borrarVisita/{{ visita.id }}" title="Borrar la visita de {{ visita.contratoprograma.alumno }} en {{ visita.contratoprograma.gerente.empresa }} del día {{ visita.fecha }}" onclick="return confirmarBorrado('/borrarVisita/{{ visita.id }}', '{{visita}}')"><img id="icono" src="/static/imagenes/no.ico"></a></td>{% endif %}
+								</tr>
+							{% endfor %}
+						</table>
+				{% else %}
+					<p style="text-align: center;">No existen visitas aún registradas</p>				
+				{% endif %}
+		
+			</div>
+		</div> <!-- #main -->
+		
+{% endblock %}

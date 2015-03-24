@@ -1,0 +1,19 @@
+<div id="links">
+	<a href="/salas/">Televisita</a>
+	{% if user.is_staff %}
+		<a href="/verEmpresas/">Empresas</a> <a href="/verLaborals/">T. Laborales</a> <a href="/verDocentes/">T. Docentes</a> <a href="/verAlumnos/">Alumnos</a> <a href="/admin/">Admin</a>			
+	{% endif %}
+						
+	{% if user.es_tutorDocente %}
+		<a href="/verAlumnos/">Alumnos</a> <a href="/verEmpresas/">Empresas</a> <a href="/verSeguimiento/">Fichas</a> 			
+	{% endif %}					
+						
+	{% if user.es_tutorLaboral %}
+		<a href="/verAlumnos/">Alumnos</a> <a href="/verSeguimiento/">Fichas</a> 		
+	{% endif %}
+						
+	{% if user.es_Alumno %}	
+		<a href="/verSeguimiento/">Fichas</a>
+	{% endif %}
+	<a href="/panel/">Preferencias</a>
+</div>

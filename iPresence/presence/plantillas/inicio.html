@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block contenido %}
+			
+		<div id="main" class="wrapper clearfix">
+			<article>
+				<header>
+					<h1 style="text-align: center;">Bienvenido a i-Presence</h1>
+					<h4 style="text-align: center;">La aplicación web de Telepresencia de Formación en Centros de Trabajo</h4>
+				</header>
+				
+				<section style="text-align: justify;">
+					
+					<p>Esta aplicación, aún en desarrollo, es para el Proyecto de <a href="http://www.juntadeandalucia.es/educacion/formacionprofesional/index.php/ensenanzas/catalogo-de-familias-profesionales-y-titulos/1167-tecnico-superior-en-administracion-de-sistemas-informaticos-en-red" target="_blank">Administración de Sistemas Informáticos en Red</a> que estoy cursando en el <a href="http://www.juntadeandalucia.es/averroes/iesbahiadecadiz/" target="_blank">IES Fernando Aguilar Quignón</a></p>
+					
+					<p>Está corriendo sobre una microinstancia de Ubuntu Server 12.04 64 bits de <a href="http://aws.amazon.com/es/ec2/" target="_blank">Amazon Elastic Compute Cloud (Amazon EC2)</a>, gracias a la <a href="http://aws.amazon.com/es/free/" target="_blank">capa de uso gratuito</a> que ofrece gratuitamente durante un año <a href="http://aws.amazon.com/es/" target="_blank">Amazon Web Services (AWS)</a></p>
+
+					<p>Está desarrollada con <a href="https://www.djangoproject.com/" target="_blank">Django</a> y para la videoconferencia he utilizado la API <a href="http://www.python.org/" target="_blank">Python</a> y javascript de <a href="http://www.tokbox.com/opentok" target="_blank">Opentok</a>. Como <a href="http://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_bases_de_datos" target="_blank">SGBD</a> uso <a href="http://www.postgresql.org/" target="_blank">PostgreSQL</a></p>
+										
+					<p>Para la edición del documento colaborativo utilizo <a href="https://github.com/ether/etherpad-lite" target="_blank">Etherpad-lite</a>, el cual necesita tener instalado <a href="http://nodejs.org/" target="_blank">Node.js</a></p>
+					
+				</section>
+				
+				<div>
+					<a href="https://www.facebook.com/er.toni.56"  target="_blank"><img class="social" src="/static/imagenes/facebook.png" alt="" /></a>
+					<a href="http://www.twitter.com/toninoes"  target="_blank"><img class="social" src="/static/imagenes/twitter.png" alt="" /></a>
+				</div>
+				<br/>
+
+			</article>
+			
+			<aside>
+				<img src="/static/imagenes/webcam.png">			
+			</aside>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}			

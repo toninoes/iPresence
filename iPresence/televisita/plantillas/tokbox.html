@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block masHead %}
+	<link rel="stylesheet" href="/static/css/bluedream.css">
+	<script src="{{ API }}"></script>
+	<script src="/static/js/col/etherpad.js"></script>
+
+	<script type="text/javascript">
+		var apiKey = '{{ API_KEY }}';
+		{% if tipoSala == 'flash' %}
+			var sessionId = '{{ room.salaId }}';
+		{% else %}
+			var sessionId = '{{ room.salaIdWebrtc }}';
+		{% endif %} 
+		var token = '{{ token }}';
+			 
+		var session = TB.initSession(sessionId);     
+		session.addEventListener('sessionConnected', sessionConnectedHandler);
+		session.addEventListener('streamCreated', streamCreatedHandler);
+		session.addEventListener("exception", exceptionHandler);    
+		session.connect(apiKey, token);
+
+		function exceptionHandler(event) {
+		  // Retry session connect
+		  if (event.code === 1006 || event.code === 1008 || event.code === 1014) {
+		    alert('Ha ocurrido un error en la conexión. Intentar de nuevo.');
+		    session.connect(apiKey, token);
+		  }
+		}
+
+		var publisher;
+	 
+		function sessionConnectedHandler(event) {
+			//Definir las propiedades del stream con el que yo publico.
+			var newStyle = {
+				nameDisplayMode: "on"
+			}
+			var divProps = {name:'{{ user.first_name }} - {{ IP }}', microphoneGain:70, style:newStyle, wmode:"window"};
+			
+			// Publicar el stream de mi webcam y situarla en el elemento DIV llamado 'myPublisherDiv'
+			publisher = session.publish('myPublisherDiv', divProps);
+
+			// Suscribirse a los streams que se encuentren en la sesion que nos conectamos
+			subscribeToStreams(event.streams);
+		}
+	     
+		function streamCreatedHandler(event) {
+			// Suscribirse a cualquier nuevo stream que sea creado
+			subscribeToStreams(event.streams);
+		}
+	     
+		function subscribeToStreams(streams) {
+			for (var i = 0; i < streams.length; i++) {
+				// Hay que asegurarse que no nos suscribimos a nuestro propio stream
+				if (streams[i].connection.connectionId == session.connection.connectionId) {
+					return;
+				}
+
+				// Crear el elemento DIV para introducir ahí el elemento al que nos suscribimos
+				var div = document.createElement('div');
+				div.setAttribute('id', 'stream' + streams[i].streamId);
+				{% if tipoSala == 'flash' %}
+					document.getElementById("Sala").appendChild(div);
+				{% else %}
+					{% if tipoSala == 'webrtc' %}
+						document.getElementById("suscriber").appendChild(div);	
+					{% endif %}
+				{% endif %}
+				var newStyle = {
+						nameDisplayMode: "on"
+					}
+				var subscriberProps = {audioVolume:100, style:newStyle, wmode:"window"};
+
+				// A continuación nos suscribimos al stream
+				session.subscribe(streams[i], div.id, subscriberProps);
+			}
+		}
+	</script>
+
+	<script>
+		$(document).ready(function(){
+		   $("#checkColaborar").click(function(evento){
+			  if ($("#checkColaborar").attr("checked")){
+				 $("#colaborativo").css("display", "block");
+			  }else{
+				 $("#colaborativo").css("display", "none");
+			  }
+		   });
+		});
+	</script>
+
+
+{% endblock %}	
+
+
+{% block contenido %}
+
+		<div class="wrapper clearfix">
+				{% if user.es_tutorDocente and room.owner == user %}					
+					<div id="Formulario" style="min-height:15px;">
+						<h2  style="text-align: center;">Sala de: {{ room.owner.get_full_name }}</h2>						
+						<form action="/tokbox/{% if tipoSala == 'flash' %}{{ room.salaId }}{% else %}{{ room.salaIdWebrtc }}{% endif %}" method="post">
+							<div style="text-align: center;">Actualmente se permite acceder a {{ form.autorizado }} <input type="submit" value="Cambiar" style="width: 100px"> <label for="id_enviarMail">¿Enviar notificación por e-mail?</label> <input type="checkbox" name="enviarMail" value="on" id="id_enviarMail" /></div>				
+						</form>					
+					</div>
+				{% else %}
+					<h2  style="text-align: center;">Sala de: {{ room.owner.get_full_name }}</h2>				
+				{% endif %}				
+		</div>
+		
+		
+		<div class="wrapper clearfix">			
+
+			<div id="Sala">
+				<div>
+					<a href="/salas/" class="enlaceboton">Ir a Sala de Espera</a>
+					<div style="float: right;">
+						{% if tipoSala == 'flash' %}
+							<a title="Utilizar la versión WebRTC (Recomendado si los participantes usan Chrome 23 o superior). Aumentará la calidad de la imagen, se reducirá la latencia, mejorando por tanto la videoconferencia notablemente." href="/tokbox/{{ room.salaIdWebrtc }}"><img style="max-width:100px; max-height: 20px;" src="/static/imagenes/webrtc.png"></a>
+						{% else %}
+							{% if tipoSala == 'webrtc' %}
+								<a title="Utilizar la versión Flash" href="/tokbox/{{ room.salaId }}"><img style="max-width:100px; max-height: 20px;" src="/static/imagenes/flash.png"></a>		
+							{% endif %}						
+						{% endif %}
+					</div>
+				</div>
+
+				<hr/>
+				{% if tipoSala == 'flash' %}
+					<div id="myPublisherDiv"></div>	
+				{% else %}
+					{% if tipoSala == 'webrtc' %}
+						<div style="margin: 0px auto; height:200px; width: 800px;">
+							<div id="myPublisherDiv" style="float: left;"></div>
+							<div id="suscriber" style="float: right;"></div>
+						</div>					
+					{% endif %}						
+				{% endif %}	
+			</div>
+			
+			{% if user.es_tutorDocente or user.es_Alumno %}	
+			
+				<div id="Sala" style="min-height:15px;">
+					<form style="text-align: center;">
+						<input type="checkbox" name="checkColaborar" value="1" id="checkColaborar"> Documento Colaborativo
+					</form>
+	
+					<div id="colaborativo" style="display: none;">
+						<div id="{{ room.owner.nif }}"></div>
+					</div>				
+				</div>
+				
+				<script type="text/javascript">
+				   $('#{{ room.owner.nif }}').pad({'host':'http://{{ servidor }}', 'padId':'{{ room.owner.nif }}-{% if user.es_tutorDocente %}{{ room.autorizado.nif }}{% else %}{{user.nif }}{% endif %}','showControls': 'true', 'showLineNumbers': 'true', 'height': '400', 'userName': '{{ user.first_name }} {{ user.last_name }}', 'showChat': 'true', 'alwaysShowChat': 'true'});
+				</script>
+			
+			{% endif %}	
+			
+		</div>
+		{% include "diagnostics.html" %}
+
+{% endblock %}

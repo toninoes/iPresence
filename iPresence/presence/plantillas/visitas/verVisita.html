@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+			
+		<div id="main" class="wrapper clearfix">			
+
+			<div id="contentalt">
+			<h2 style="text-align: center;">Hoja de Visita a Empresa</h2>
+			<h2 style="text-align: center;">Curso <b>{{ visita.contratoprograma.curso }}</b></h2>
+			<table>
+				<tr>
+					<td style="text-align: left; width: 20%;"><b>Tutor/a Docente</b></td>
+					<td style="text-align: left;"> D/Dª {{ visita.contratoprograma.docente }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: left;"><b>Alumno/a</b></td>
+					<td style="text-align: left;"> D/Dª {{ visita.contratoprograma.alumno }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: left;"><b>Ciclo Formativo</b></td>
+					<td style="text-align: left;"> Administración de Sistémas Informáticos en Red</td>
+				</tr>
+
+				<tr>
+					<td style="text-align: left;"><b>Tutor/a Laboral</b></td>
+					<td style="text-align: left;"> {{ visita.contratoprograma.laboral }}</td>
+				</tr>
+								
+				<tr>
+					<td style="text-align: left;"><b>Empresa</b></td>
+					<td style="text-align: left;"> {{ visita.contratoprograma.gerente.empresa }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: left;"><b>Dirección</b></td>
+					<td style="text-align: left;"> {{ visita.contratoprograma.laboral.centro.direccion }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: left;"><b>Población</b></td>
+					<td style="text-align: left;"> {{ visita.contratoprograma.laboral.centro.poblacion }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: left;"><b>Código postal</b></td>
+					<td style="text-align: left;"> {{ visita.contratoprograma.laboral.centro.postal }}</td>
+				</tr>									
+			</table>
+			
+			
+			<h3>1. La visita se realiza para evaluar si el alumno/a</h3>			
+			<table>
+			{% for aprendizajesEsperado in aprendizajesEsperados %}
+				<tr>
+					<td style="text-align: center; vertical-align: center; width: 5%;">1.{{ forloop.counter }}.</td>
+					<td style="text-align: justify;">{{ aprendizajesEsperado }}</td>
+					<td style="text-align: center; vertical-align: center; width: 5%;">{% if aprendizajesEsperado in  aprendizajesPositivos%} <b>SI</b> {% else %} <b style="color: red;">NO</b> {% endif %}</td>
+				</tr>				
+			{% endfor %}			
+			</table>
+			
+			
+			<h3>2. Si el motivo de la visita es otro o se quiere constatar alguna observación. indicar cuál</h3>
+			<table>
+				<tr>
+					<td style="text-align: justify;">{% if not visita.otro_motivo %}<br/>{% else %} {{ visita.otro_motivo }} {% endif %}</td>
+				</tr>
+			</table>
+			
+			
+			
+			<h3>3. Para realizar esta visita {% if visita.tiempo == '1' %}se necesitó {% else %}se necesitaron {% endif %}<span style="color: red;">{{ visita.tiempo }} hora{{ visita.tiempo|pluralize }}</span> computable{{ visita.tiempo|pluralize }} como lectiva{{ visita.tiempo|pluralize }}</h3>
+			
+			<h4 style="text-align: center;">En {{ visita.contratoprograma.laboral.centro.poblacion }} a {{ visita.fecha }}</h4>
+			
+			<table style="border: 0px;">
+				<tr style="border: 0px;">
+					<td style="text-align: center; width: 24%;"><br/><br/>Sello<br/>de la<br/>empresa<br/><br/><br/></td>
+					<td style="text-align: center; width: 38%; border: 0px; vertical-align: top;">El/la Tutor/a Laboral<br/><br/><br/><br/><br/><br/>Fdo.- {{ visita.contratoprograma.laboral }}</td>
+					<td style="text-align: center; width: 38%; border: 0px; vertical-align: top;">El/la Tutor/a Docente<br/><br/><br/><br/><br/><br/>Fdo.- {{ visita.contratoprograma.docente }}</td>
+				</tr>
+				<tr style="border: 0px;">
+					<td colspan="3" style="text-align: right; border: 0px;"><br/><b>MODALIDAD VISITA</b><br/>{% if visita.modalidad == 'P' %} <b>X</b> {% endif %}Presencial<br/>{% if visita.modalidad == 'T' %} <b>X</b> {% endif %}Telemática</td>
+				</tr>
+			</table>
+		
+			</div>
+		</div> <!-- #main -->
+		
+{% endblock %}

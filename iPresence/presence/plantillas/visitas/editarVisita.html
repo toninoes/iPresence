@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">				
+			<h2 style="text-align: center;">Editar Visita</h2>	
+			<table>
+				<tr>
+					<td style="text-align: right; width: 20%;"><b>Tutor/a Docente</b></td>
+					<td style="text-align: left;"> {{ contrato.docente }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: right;"><b>Alumno/a</b></td>
+					<td style="text-align: left;"> {{ contrato.alumno }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: right;"><b>Ciclo Formativo</b></td>
+					<td style="text-align: left;"> Administración de Sistémas Informáticos en Red</td>
+				</tr>
+
+				<tr>
+					<td style="text-align: right;"><b>Tutor/a Laboral</b></td>
+					<td style="text-align: left;"> {{ contrato.laboral }}</td>
+				</tr>
+								
+				<tr>
+					<td style="text-align: right;"><b>Empresa</b></td>
+					<td style="text-align: left;"> {{ contrato.gerente.empresa }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: right;"><b>Dirección</b></td>
+					<td style="text-align: left;"> {{ contrato.laboral.centro.direccion }}</td>
+				</tr>
+				
+				<tr>
+					<td style="text-align: right;"><b>Población</b></td>
+					<td style="text-align: left;"> {{ contrato.laboral.centro.poblacion }}</td>
+				</tr>										
+			</table>				
+
+			<div id="Formulario">				
+				
+				<form name="crearVisita" action="/editarVisita/{{ form.idVis.value }}/" method="post">
+					<div style="color:red;">{{ form.non_field_errors }}</div>	
+					{{ form.idVis }}
+					<table>
+						<style type="text/css">ul{list-style-type: none; text-align: justify;} textarea{width: 100%;}</style>
+						<tr>
+							<td colspan="2" style="text-align: center;">
+								<select name="contratoprograma" id="id_contratoprograma">
+									<option value="{{ contrato.id }}" selected="selected">{{ contrato }}</option>
+								</select>
+								<span style="color:red;"> {% for error in form.contrato.errors %}{{ error }}{% endfor %}</span>								 
+							</td>
+						</tr>
+						
+						
+						<tr>
+							<td colspan="2" style="text-align: justify;"><h3>Fecha: {{ form.fecha }} <span style="color:red;">{% for error in form.fecha.errors %}{{ error }}{% endfor %}</span></h3></td>
+						</tr>
+						
+						<tr>
+							<td colspan="2" style="text-align: justify;"><h3>1. La visita se realiza para evaluar si el alumno/a</h3></td>
+						</tr>	
+
+						<tr>
+							<td style="text-align: right;"><label> <b>Desmarcar aquellos aspectos que no se vayan a evaluar</b> </label></td>
+							<td style="text-align: left;"> 	
+								
+								{{ form.aprendizajesPositivos }}			
+												
+								<span style="color:red;"> {% for error in form.aprendizajes.errors %}{{ error }}{% endfor %}</span>
+							</td>
+						</tr>	
+						
+						<tr>
+							<td colspan="2" style="text-align: justify;"><h3>2. Si el motivo de la visita es otro o se quiere constatar alguna observación. indicar cuál</h3></td>
+						</tr>					
+						
+						<tr>
+							<td colspan="2" style="text-align: justify;">{{ form.otro_motivo }}<span style="color:red;"> {% for error in form.otro_motivo.errors %}{{ error }}{% endfor %}</span></td>
+						</tr>	
+
+						<tr>
+							<td colspan="2" style="text-align: justify;"><h3>3. Para realizar esta visita se han necesitado <span>{{ form.tiempo }}</span> computables como lectivas</h3></td>
+						</tr>
+
+						<tr>
+							<td colspan="2" style="text-align: justify;"><h3>4. La visita se ha realizado de forma <span>{{ form.modalidad }}</span></h3></td>
+						</tr>
+												
+						<tr>
+							<td colspan="2" style="text-align: left;"><input type="submit" value="Editar Visita"></td>
+						</tr>				
+							
+					</table>										
+				</form>
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}	

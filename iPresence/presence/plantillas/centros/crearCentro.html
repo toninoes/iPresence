@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">				
+				
+			<div id="Formulario">
+				
+				<h2 style="text-align: center;">Registrar nuevo centro de trabajo {% if empresa %} para {{ empresa }} - {{ empresa.cif }} {% endif %}</h2>				
+					
+					<form name="crearCentro" action="/crearCentro/" method="post">
+						<div style="color:red;">{{ form.non_field_errors }}</div>
+						
+						<table>
+							
+							<tr>
+								<td style="text-align: right; width: 45%;">Dirección </td>
+								<td style="text-align: left;">{{ form.direccion }} <span style="color:red;">{% for error in form.direccion.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;">Población </td>
+								<td style="text-align: left;">{{ form.poblacion }} <span style="color:red;">{% for error in form.poblacion.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;">Código postal </td>
+								<td style="text-align: left;">{{ form.postal }}	<span style="color:red;">{% for error in form.postal.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;">email </td>
+								<td style="text-align: left;">{{ form.email }} <span style="color:red;">{% for error in form.email.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+
+							<tr>
+								<td style="text-align: right;">Teléfono </td>
+								<td style="text-align: left;">{{ form.telefono }} <span style="color:red;">{% for error in form.telefono.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;">Fax </td>
+								<td style="text-align: left;">{{ form.fax }} <span style="color:red;">{% for error in form.fax.errors %}{{ error }}{% endfor %}</span></td>								
+							</tr>
+							
+							<tr>
+								<td style="text-align: right;">Empresa </td>
+								{% if empresa %}
+									<td style="text-align: left;">
+										<select name="empresa" id="id_empresa">
+											<option value="{{ empresa.id }}">{{ empresa }}</option>
+										</select>										
+										<span style="color:red;">{% for error in form.empresa.errors %}{{ error }}{% endfor %}</span>
+									</td>
+								{% else %}
+									<td style="text-align: left;">{{ form.empresa }}
+									<a href="/registroEmpresa/" title="Nueva Empresa"><img id="icono" src="/static/imagenes/add.ico"></a>
+									<span style="color:red;">{% for error in form.empresa.errors %}{{ error }}{% endfor %}</span></td>
+								{% endif %}
+							</tr>
+														
+							<tr>
+								<td style="text-align: right;"></td>
+								<td style="text-align: left;"><input type="submit" value="Guardar"></td>
+							</tr>
+						</table>						
+					</form>
+			</div>
+			
+		</div> <!-- #main -->
+		
+{% endblock %}	

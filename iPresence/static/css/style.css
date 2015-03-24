@@ -1,0 +1,474 @@
+/* =============================================================================
+   HTML5 Boilerplate CSS: h5bp.com/css
+   ========================================================================== */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+audio:not([controls]) { display: none; }
+[hidden] { display: none; }
+
+html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html, button, input, select, textarea { font-family: sans-serif; color: #222; }
+body { margin: 0; font-size: 1em; line-height: 1.4; }
+
+::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+
+a { color: #00e; text-decoration: none;}
+
+a:hover { color: #06e;}
+a:focus { outline: thin dotted;}
+a:hover, a:active { outline: 0;}
+
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: bold; }
+blockquote { margin: 1em 40px; }
+dfn { font-style: italic; }
+hr { display: block; height: 1px; border: 0; margin: 1em 0; padding: 0; }
+ins { background: #ff9; color: #000; text-decoration: none; }
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+object  {
+	background-color: #E44D26;
+	margin: 1%;
+	max-width: 99%;
+}
+
+code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
+/*pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }*/
+q { quotes: none; }
+q:before, q:after { content: ""; content: none; }
+small { font-size: 85%; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; max-width: 90%;}
+ul li { list-style-type: none;}
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; max-width: 99%;}
+#icono {max-width:15px; max-height: 15px;}
+svg:not(:root) { overflow: hidden; }
+
+figure { margin: 0; }
+
+table{
+	margin-bottom: 15px;
+	width: 98%;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	text-align: center;	
+}
+
+th{
+	border: 1px solid #000000;
+	vertical-align: middle;
+	text-align: center;
+}
+
+td{
+	border: 1px solid #000000;
+	padding: 10px;
+	vertical-align: middle;
+}
+
+.chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
+
+
+/* ===== Initializr Styles =====================================================
+   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+   ========================================================================== */
+
+body{ font:16px/26px Helvetica, Helvetica Neue, Arial; }
+
+.wrapper{
+	width:90%;
+	margin: 0px 5%;
+}
+
+/* ===================
+    ALL: Orange Theme
+   =================== */
+
+#header-container{ border-bottom: 10px solid #e44d26; margin-bottom: 10px;}
+#footer-container{ border-top:    10px solid #e44d26; margin-top: 10px;}
+#main aside      { border-top:    10px solid #e44d26; margin-bottom: 10px; text-align: center;}
+
+
+#main-container{min-height: 430px; }
+#header-container,
+#footer-container,
+#main aside{
+	background:#f16529;
+}
+
+#title{ font-size: 28px; }
+
+/*#logueado{ float:right; margin-right: 25px; margin-bottom: 2px; margin-left: 10px; color:white;}*/
+#logueado{ float:right; margin-left: 10px; color:white;}
+#loginDiv { margin: 0px auto; width: 100%; }
+#insertar table{
+	border: 1px solid #000000;	
+}
+
+#links a{
+	color: white;
+	background: #e44d26;
+	padding: 4px;
+	margin-top: 5px;
+}
+
+.enlaceboton {
+   max-width: 95%;
+   padding: 4px; 
+   margin: 5px auto;
+   /*background: #5E768D;
+   background: -moz-linear-gradient(top, #002c3c 0%, #204c5c 20%);  firefox */
+   /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#002c3c), color-stop(20%,#204c5c));  webkit */
+   background: #7CA0C7 url(../img/admin/default-bg.gif) top left repeat-x;
+   border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   -moz-box-shadow: 0px 1px 0px #f2f2f2;
+   -webkit-box-shadow: 0px 1px 0px #f2f2f2;
+   font-family: sans-serif; font-size: 16px;
+   color: white; 
+   text-shadow: 0px -1px 0px #334f71;
+   resize:none;
+   text-decoration: none
+}
+.enlaceboton:link,
+.enlaceboton:visited {
+   max-width: 95%; 
+   padding: 4px; 
+   margin: 5px auto;
+   /*background: #5E768D;
+   background: -moz-linear-gradient(top, #002c3c 0%, #204c5c 20%);  firefox */
+   /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#002c3c), color-stop(20%,#204c5c));  webkit */
+   background: #7CA0C7 url(../img/admin/default-bg.gif) top left repeat-x;
+   border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   -moz-box-shadow: 0px 1px 0px #f2f2f2;
+   -webkit-box-shadow: 0px 1px 0px #f2f2f2;
+   font-family: sans-serif; font-size: 16px;
+   color: white;  
+   text-shadow: 0px -1px 0px #334f71;
+   resize:none;
+   text-decoration: none
+}
+.enlaceboton:hover {
+   background: -moz-linear-gradient(top, #668099 0%, #728eaa 100%); /* firefox */
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#204c5c), color-stop(100%,#406c7c)); /* webkit */
+   text-decoration: none
+}
+
+
+.enlacebotonNaranja {
+   width: 95%; 
+   height: 32px; 
+   padding: 5px; 
+   margin: 5px;
+   background: #e44d26;
+   border: 1px solid #ccc;
+   border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   -moz-box-shadow: 0px 1px 0px #f2f2f2;
+   -webkit-box-shadow: 0px 1px 0px #f2f2f2;
+   font-family: sans-serif; font-size: 16px;
+   color: white;  
+   text-shadow: 0px -1px 0px #334f71;
+   resize:none;
+   text-decoration: none
+}
+.enlacebotonNaranja:link,
+.enlacebotonNaranja:visited {
+   width: 95%; 
+   height: 32px; 
+   padding: 5px; 
+   margin: 5px;
+   background: #e44d26;
+   border: 1px solid #ccc;
+   border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px;
+   -moz-box-shadow: 0px 1px 0px #f2f2f2;
+   -webkit-box-shadow: 0px 1px 0px #f2f2f2;
+   font-family: sans-serif; font-size: 16px;
+    color: white; 
+   /*text-transform: uppercase;*/ 
+   text-shadow: 0px -1px 0px #334f71;
+   resize:none;
+   text-decoration: none
+}
+.enlacebotonNaranja:hover {
+   background: -moz-linear-gradient(top, #668099 0%, #728eaa 100%); /* firefox */
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#204c5c), color-stop(100%,#406c7c)); /* webkit */
+   text-decoration: none
+}
+
+.social{
+	-moz-transition: all 1s ease;
+	-webkit-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+
+.social:hover{
+	-moz-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	-o-transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+
+::-moz-selection { background: #f16529; color: #fff; text-shadow: none; }
+::selection      { background: #f16529; color: #fff; text-shadow: none; }
+
+#innerdocbody span {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+
+#Formulario {
+   width: 96%;
+   padding-right: 1%;
+   padding-left: 1%;
+   background: #eee; 
+   border: 1px solid #e1e1e1;
+   -webkit-box-shadow:0 5px 10px #aaa;
+   -moz-box-shadow:0 5px 10px #aaa;
+   box-shadow:0 5px 10px #aaa;
+   border-radius: 20px; 
+   -moz-border-radius: 20px;
+   -webkit-border-radius: 20px;
+   }
+
+#Formulario table{
+	padding: 1px;
+	text-align: left;
+	border: 0px;
+}
+
+#Formulario td{
+	padding: 1px;
+	text-align: left;
+	border: 0px;
+}
+
+#Sala {
+   text-align: center;
+   width: 96%;
+   min-height:200px;
+   padding: 1%;
+   background: #eee; 
+   border: 1px solid #e1e1e1;
+   -webkit-box-shadow:0 5px 10px #aaa;
+   -moz-box-shadow:0 5px 10px #aaa;
+   box-shadow:0 5px 10px #aaa;
+   border-radius: 20px; 
+   -moz-border-radius: 20px;
+   -webkit-border-radius: 20px;
+   }
+   
+ 
+
+/* ==============
+    MOBILE: Menu
+   ============== */
+
+nav a{
+	display:block;
+	margin-bottom:10px;
+	padding:15px 0;
+
+	background:#e44d26;
+	color:white;
+
+	text-align:center;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+nav a:hover, nav a:visited{
+	color:white;
+}
+
+nav a:hover{
+	text-decoration:underline;
+}
+
+
+
+/* ==============
+    MOBILE: Main
+   ============== */
+
+#main{
+	padding: 5px 0;
+}
+
+#main article h1{
+	font-size:2em;
+}
+
+#main aside{
+	color:white;
+	padding: 2%;
+	margin-top: 3px;
+}
+
+#footer-container footer{
+	color:white;
+	padding:20px 0;
+}
+
+
+
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 #title{ padding-top:20px; }
+
+
+/* ===== Primary Styles ========================================================
+   Author:
+   ========================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+/* =============================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+
+/* ====================
+    INTERMEDIATE: Menu
+   ==================== */
+	
+	nav a{
+		float:left;
+		width:27%;
+		margin:0 1.7%;
+		padding:25px 2%;
+		margin-bottom:0;
+	}
+	
+	nav li:first-child a{ margin-left:0;  }
+	nav li:last-child  a{ margin-right:0; }
+	
+/* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== */
+
+	nav ul li{
+		display:inline;
+	}	
+	.oldie nav a{
+		margin:0 0.7%;		
+	}
+}
+
+@media only screen and (min-width: 768px) {
+
+/* ====================
+    WIDE: CSS3 Effects
+   ==================== */
+
+	#header-container,
+	#main aside{
+		-webkit-box-shadow:0 5px 10px #aaa;
+		   -moz-box-shadow:0 5px 10px #aaa;
+		        box-shadow:0 5px 10px #aaa;
+	}
+
+/* ============
+    WIDE: Menu
+   ============ */
+	
+	#title{
+		float:left;
+	}
+
+	nav{
+		float:right;
+		width:38%;
+	}
+
+/* ============
+    WIDE: Main
+   ============ */
+
+	#main article{
+		float:left;
+		width:67%;
+	}
+		
+	#main aside{
+		float:right;
+		width:26%;
+	}
+	
+	#loginDiv { margin: 0px auto; width: 90%; }
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== */
+
+	.wrapper{
+		width:95%; /* 1140px - 10% for margins */
+		margin:0 auto;
+	}
+}
+
+/* =============================================================================
+   Non-Semantic Helper Classes
+   ========================================================================== */
+
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
+.ir br { display: none; }
+.hidden { display: none !important; visibility: hidden; }
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+.invisible { visibility: hidden; }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+/* =============================================================================
+   Print Styles
+   ========================================================================== */
+ 
+@media print {
+  * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+
+

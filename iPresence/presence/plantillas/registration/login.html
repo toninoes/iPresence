@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block contenido %}	
+
+			
+		<div id="main" class="wrapper clearfix">
+			<br/>
+			<article>
+				<div id="loginDiv">		
+					<div id="Formulario" style="text-align: center;">
+						<h2>Inicio de sesión</h2>
+						<form action="" method="post">					
+							<div style="color:red; text-align: justify;">{{ form.non_field_errors }}</div>
+								<table>
+									<tr>
+										<td style="text-align: right; width: 40%;"><label>Usuario </label></td>
+										<td style="text-align: left;">{{ form.username }} <span style="color:red;">{% for error in form.username.errors %}{{ error }}{% endfor %}</span></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;"><label>Clave </label></td>
+										<td style="text-align: left;">{{ form.password }} <span style="color:red;">{% for error in form.password.errors %}{{ error }}{% endfor %}</span></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;"></td>
+										<td style="text-align: left;"><input type="submit" value="Entrar"/></td>
+									</tr>
+									<tr>
+										<td style="text-align: right;"></td>
+										<td style="text-align: left;"><a href="/norecuerdo/">¿Has olvidado la contraseña?</a></td>
+									</tr>													
+									
+								</table>
+						</form>
+						<script type="text/javascript">document.getElementById("id_username").focus();</script>
+					</div><br/>
+
+					<div>
+						<a href="https://www.facebook.com/er.toni.56"  target="_blank"><img class="social" src="/static/imagenes/facebook.png" alt="" /></a>
+						<a href="http://www.twitter.com/toninoes"  target="_blank"><img class="social" src="/static/imagenes/twitter.png" alt="" /></a>
+					</div>
+					<br/>
+				</div>
+				
+			</article>	
+		
+			<aside>
+				<img src="/static/imagenes/webcam.png">	
+			</aside>	
+				
+		</div> <!-- #main -->
+
+{% endblock %}
+		
+

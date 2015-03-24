@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block contenido %}		
+
+			
+		<div id="main" class="wrapper clearfix">
+			
+			{% if centros %}	
+				<div id="contentalt">
+					<h2 style="text-align: center;">Relación de centros de trabajo {% if empresa %} de {{ empresa }} - {{ empresa.cif }} {% endif %}</h2>
+					<table>
+						<tr>
+		{% if not empresa %}<th><strong>Empresa</strong></th>{% endif %}
+							<th colspan="2"><strong>Dirección</strong></th>
+							<th><strong>Población</strong></th>
+							<th><strong>Código postal</strong></th>
+							<th><strong>Teléfono</strong></th>
+							<th><strong>Fax</strong></th>
+							<th><strong>email</strong></th>
+						</tr>				
+						{% for centro in centros %}
+							<tr>								
+			{% if not empresa %}<td>{{ centro.empresa }}</td>{% endif %}
+								<td><a href="/editarCentro/{{ centro.id }}" title="Editar datos del centro {{ centro }}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>
+								<td>{{ centro.direccion }}</td>
+								<td>{{ centro.poblacion }}</td>
+								<td>{{ centro.postal }}</td>
+								<td>{{ centro.telefono }}</td>
+								<td>{{ centro.fax }}</td>
+								<td>{{ centro.email }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			{% else %}
+				<p style="text-align: center;">No hay registrado todavía ningun centro para {% if empresa %} de {{ empresa }} {% endif %}</p>
+			{% endif %}			
+		</div> <!-- #main -->
+		
+{% endblock %}

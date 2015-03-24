@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+{% block contenido %}
+			
+		<div id="main" class="wrapper clearfix">
+			
+			{% if laborals %}			
+		
+				<div id="contentalt">
+					<h2 style="text-align: center;">Relación de tutores laborales {% if empresa %} de {{ empresa }} - {{ empresa.cif }} {% endif %}</h2>
+						<table>
+							<tr>
+								<th colspan="2"><strong>NIF</strong></th>
+								<th><strong>Nombre</strong></th>
+								<th><strong>Apellido/s</strong></th>
+								<th><strong>e-mail</strong></th>
+								<th><strong>Empresa</strong></th>
+								<th><strong>Centro de Trabajo</strong></th>
+								<th><strong>Último Login</strong></th>
+								<th><strong><img id="icono" title="Activar o Desactivar a usuario" src="/static/imagenes/users.ico"></strong></th>
+								<th><strong><img id="icono" title="Permitir o no permitir realizar videoconferencia al usuario" src="/static/imagenes/webcam2.ico"></strong></th>
+							</tr>				
+							{% for laboral in laborals %}
+							<tr>
+								<td><a href="/editarLaboral/{{ laboral.id }}" title="Editar datos del tutor laboral {{ laboral }}"><img id="icono" src="/static/imagenes/ico_edit.png"></a></td>
+								<td>{{ laboral.nif }}</td>
+								<td>{{ laboral.first_name }}</td>
+								<td>{{ laboral.last_name }}</td>
+								<td>{{ laboral.email }}</td>
+								<td>{{ laboral.centro.empresa }}</td>
+								<td>{{ laboral.centro }}</td>
+								<td>{{ laboral.last_login|date:'d/M/Y H:i' }}</td>
+								<td>{% if laboral.is_active %}<a href="/desactivaUsuario/{{ laboral.id }}" title="Desactivar a {{ laboral }}"><img id="icono" src="/static/imagenes/si.png"></a>{% else %}<a href="/activaUsuario/{{ laboral.id }}" title="Activar a {{ laboral }}"><img id="icono" src="/static/imagenes/no.ico"></a>{% endif %}</td>
+								<td>{% if laboral.puede_hablar %}<a href="/nohablaUsuario/{{ laboral.id }}" title="Desactivar videoconferencia a {{ laboral }}"><img id="icono" src="/static/imagenes/si.png"></a>{% else %}<a href="/hablaUsuario/{{ laboral.id }}" title="Activar videoconferencia a {{ laboral }}"><img id="icono" src="/static/imagenes/no.ico"></a>{% endif %}</td>
+							</tr>
+							{% endfor %}
+						</table>
+				</div>
+			{% else %}
+				<p style="text-align: center;">No hay registrado todavía ningun Tutor Laboral {% if empresa %} de {{ empresa }} {% endif %}</p>
+			{% endif %}
+			
+		</div> <!-- #main -->
+		
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+		<div id="main" class="wrapper clearfix">
+			<article>
+				<div id="Formulario">
+				<h2>Panel de Administración</h2>
+				<ul>
+					{% if user.is_staff %}
+						<li><a href="/verEmpresas/">Empresas</a></li>
+						<li><a href="/verLaborals/">Tutores Laborales</a></li>
+						<li><a href="/verDocentes/">Tutores Docentes</a></li>
+						<li><a href="/verAlumnos/">Alumnos</a></li>												
+					{% endif %}
+					
+					{% if user.es_tutorDocente %}
+						<li><a href="/verAlumnos/">Alumnos</a></li>
+						<li><a href="/verEmpresas/">Empresas</a></li>
+						<li><a href="/verSeguimiento/">Fichas de Seguimiento de tus alumnos</a></li>				
+					{% endif %}					
+					
+					{% if user.es_tutorLaboral %}
+						<li><a href="/verAlumnos/">Tus Alumnos</a></li>
+						<li><a href="/verSeguimiento/">Fichas de Seguimiento de tus alumnos</a></li>					
+					{% endif %}
+					
+					{% if user.es_Alumno %}	
+						{% if alumno.docente %}<li><a href="/verSeguimiento/">Ficha Semanal</a></li>{% endif %}	
+					{% endif %}		
+		
+						<li><a href="/cambio/">Cambia tu contraseña</a></li>
+						<li><a href="/updateUser/">Actualizar datos personales</a></li>
+					
+				</ul>
+				</div>
+				<br/>		
+			</article>
+			
+			
+			<aside>
+				<img src="/static/imagenes/webcam.png">			
+			</aside>
+			
+		</div> <!-- #main -->
+
+{% endblock %}
