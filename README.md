@@ -22,8 +22,8 @@ Una vez autenticados, para hacer una videoconferencia hay que pinchar en el enla
 
 O bien pincha directamente a “Ir a mi Sala” eres tutor docente.
 
-![Sala de espera](https://github.com/toninoes/Proyecto/blob/master/iPresence/b.jpeg)
+![Sala de espera](https://github.com/toninoes/Proyecto/blob/master/iPresence/static/imagenes/b.jpeg)
 
 Cada tutor docente tiene su propia sala y es el tutor docente el que invita a cada alumno o a cada tutor laboral a acceder a su propia sala, por tanto es posible que no estés invitado a acceder a ninguna sala.
 
-![Sala de Tutor](https://github.com/toninoes/Proyecto/blob/master/iPresence/a.jpeg)
+![Sala de Tutor](https://github.com/toninoes/Proyecto/blob/master/iPresence/static/imagenes/a.jpeg)
