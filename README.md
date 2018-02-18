@@ -16,3 +16,6 @@ Es una aplicación web de Tele-presencia de FCT (Formación en Centros de Trabaj
 - Etherpad
 - Git
 
+### Capturas de la aplicación
+
+![alt text](https://github.com/toninoes/Proyecto/blob/master/iPresence/a.jpeg)
