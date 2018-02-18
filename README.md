@@ -16,6 +16,3 @@ Es una aplicación web de Tele-presencia de FCT (Formación en Centros de Trabaj
 - Etherpad
 - Git
 
-### Capturas de la aplicación
-
-![alt text](C:\Users\toni\Desktop\a.jpg?raw=true "Captura")
