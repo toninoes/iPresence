@@ -1,4 +1,4 @@
-# Proyecto iPresence
+# iPresence
 Proyecto Fin Ciclo (DJANGO) - Administración Sistemas Informáticos
 
 Es una aplicación web de Tele-presencia de FCT (Formación en Centros de Trabajo) para los alumnos del CFGS de Administración de Sistemas Informáticos del IES Fernando Aguilar Quignón.
@@ -27,3 +27,7 @@ O bien pincha directamente a “Ir a mi Sala” eres tutor docente.
 Cada tutor docente tiene su propia sala y es el tutor docente el que invita a cada alumno o a cada tutor laboral a acceder a su propia sala, por tanto es posible que no estés invitado a acceder a ninguna sala.
 
 ![Sala de Tutor](https://github.com/toninoes/Proyecto/blob/master/iPresence/static/imagenes/a.jpeg)
+
+Panel de administración de la aplicación
+
+![Sala de Tutor](https://github.com/toninoes/Proyecto/blob/master/iPresence/static/imagenes/c.png)
