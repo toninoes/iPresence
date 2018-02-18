@@ -10,6 +10,7 @@ Es una aplicación web de Tele-presencia de FCT (Formación en Centros de Trabaj
 - PostgreSQL
 - OpenTok
 - Apache
+- WebRTC
 - Node.js
 - jQuery
 - Etherpad
